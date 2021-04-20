@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import main.Main;
 
 public class StartMenuCodeBehind {
 
@@ -21,6 +23,11 @@ public class StartMenuCodeBehind {
     
     public StartMenuCodeBehind() {
     	
+    }
+    
+    @FXML
+    public void switchToQuestion() {
+
     }
 
 }
