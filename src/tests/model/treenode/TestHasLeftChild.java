@@ -1,4 +1,4 @@
-package tests.model.binarytree;
+package tests.model.treenode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,22 +6,22 @@ import org.junit.jupiter.api.Test;
 
 import model.TreeNode;
 
-class TestHasRightChild {
+class TestHasLeftChild {
 
 	@Test
-	public void shouldReturnFalseIfRightChildIsNull() {
+	public void shouldReturnFalseIfLeftChildIsNull() {
 		TreeNode node = new TreeNode("value");
 		
-		assertFalse(node.hasRightChild());
+		assertFalse(node.hasLeftChild());
 	}
 	
 	@Test
 	public void shouldReturnTrueIfLeftChildIsNotNull() {
 		TreeNode node = new TreeNode("value");
-		TreeNode leftChild = new TreeNode("right");
+		TreeNode leftChild = new TreeNode("left");
 		
-		node.setRightChild(leftChild);
-		assertTrue(node.hasRightChild());
+		node.setLeftChild(leftChild);
+		assertTrue(node.hasLeftChild());
 	}
 
 }

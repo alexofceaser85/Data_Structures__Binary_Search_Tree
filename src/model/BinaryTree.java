@@ -16,11 +16,27 @@ public class BinaryTree {
 	}
 	
 	/**
-	 * Sets the root node for the binary tree
+	 * Gets the root node
 	 * 
-	 * @precondition rootNodeToSet != null
+	 * @precondition none
 	 * @postcondition none
 	 * 
+	 * @return the root node
 	 */
+	
+	public TreeNode getRootNode() {
+		return this.rootNode;
+	}
+	
+	/**
+	 * Sets the root node for the binary tree
+	 * 
+	 * @precondition none
+	 * @postcondition this.rootNode == rootNodeToSet
+	 */
+	
+	public void setRootNode(TreeNode rootNodeToSet) {
+		this.rootNode = rootNodeToSet; 
+	}
 
 }

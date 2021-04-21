@@ -1,4 +1,4 @@
-package tests.model.binarytree;
+package tests.model.treenode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
