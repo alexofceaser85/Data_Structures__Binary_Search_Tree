@@ -29,6 +29,7 @@ class TestConstructor {
 		assertEquals("valid value", node.getNodeValue());
 		assertEquals(null, node.getLeftChild());
 		assertEquals(null, node.getRightChild());
+		assertEquals(null, node.getParentNode());
 	}
 
 }

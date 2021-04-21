@@ -7,6 +7,7 @@ public class TreeNode {
 	private String nodeValue;
 	private TreeNode leftChild;
 	private TreeNode rightChild;
+	private TreeNode parentNode;
 	
 	/**
 	 * Makes a new node on the tree
@@ -16,6 +17,7 @@ public class TreeNode {
 	 * 		this.nodeValue = value
 	 * 		&& this.leftChild == null
 	 * 		&& this.rightChild == null
+	 * 		&& this.parentNode == null
 	 * 
 	 * @param value the value of the new tree node
 	 */
@@ -32,6 +34,7 @@ public class TreeNode {
 		this.nodeValue = value;
 		this.leftChild = null;
 		this.rightChild = null;
+		this.parentNode = null;
 	}
 	
 	/**
@@ -71,6 +74,19 @@ public class TreeNode {
 	
 	public TreeNode getRightChild() {
 		return this.rightChild;
+	}
+	
+	/**
+	 * Gets the parent node
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the parent node
+	 */
+	
+	public TreeNode getParentNode() {
+		return this.parentNode;
 	}
 	
 	/**
@@ -121,6 +137,21 @@ public class TreeNode {
 		}
 		
 		this.nodeValue = valueToSet;
+	}
+	
+	/**
+	 * Sets the parent node of the tree
+	 * 
+	 * @precondition !parentNodeToSet.getNodeValue().equals(this.parentNode.getNodeValue()@prev)
+	 * @postcondition this.parentNode == parentNodeToSet
+	 */
+	
+	public void setParentNode(TreeNode parentNodeToSet) {
+		if (this.parentNode != null && this.parentNode.getNodeValue().equals(parentNodeToSet.getNodeValue())) {
+			throw new IllegalArgumentException(ErrorMessages.THE_VALUE_OF_THE_PARENT_NODE_CANNOT_BE_THE_SAME_AS_PREVIOUS);
+		}
+		
+		this.parentNode = parentNodeToSet;
 	}
 	
 	/**
