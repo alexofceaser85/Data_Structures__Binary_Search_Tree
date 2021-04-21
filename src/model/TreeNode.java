@@ -98,6 +98,10 @@ public class TreeNode {
 	
 	public void setLeftChild(TreeNode nodeToSet) {
 		
+		if (nodeToSet == null) {
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_A_NULL_LEFT_CHILD);
+		}
+		
 		if (this.leftChild != null && this.leftChild.getNodeValue().equals(nodeToSet.getNodeValue())) {
 			throw new IllegalArgumentException(ErrorMessages.THE_VALUE_OF_THE_LEFT_CHILD_CANNOT_BE_THE_SAME_AS_PREVIOUS);
 		}
@@ -113,6 +117,10 @@ public class TreeNode {
 	 */
 	
 	public void setRightChild(TreeNode nodeToSet) {
+		
+		if (nodeToSet == null) {
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_A_NULL_RIGHT_CHILD);
+		}
 		
 		if (this.rightChild != null && this.rightChild.getNodeValue().equals(nodeToSet.getNodeValue())) {
 			throw new IllegalArgumentException(ErrorMessages.THE_VALUE_OF_THE_RIGHT_CHILD_CANNOT_BE_THE_SAME_AS_PREVIOUS);
@@ -142,11 +150,17 @@ public class TreeNode {
 	/**
 	 * Sets the parent node of the tree
 	 * 
-	 * @precondition !parentNodeToSet.getNodeValue().equals(this.parentNode.getNodeValue()@prev)
+	 * @precondition 
+	 * 		parentNodeToSet != null
+	 * 		!parentNodeToSet.getNodeValue().equals(this.parentNode.getNodeValue()@prev)
 	 * @postcondition this.parentNode == parentNodeToSet
 	 */
 	
 	public void setParentNode(TreeNode parentNodeToSet) {
+		if (parentNodeToSet == null) {
+			throw new IllegalArgumentException(ErrorMessages.THE_PARENT_NODE_TO_SET_CANNOT_BE_NULL);
+		}
+		
 		if (this.parentNode != null && this.parentNode.getNodeValue().equals(parentNodeToSet.getNodeValue())) {
 			throw new IllegalArgumentException(ErrorMessages.THE_VALUE_OF_THE_PARENT_NODE_CANNOT_BE_THE_SAME_AS_PREVIOUS);
 		}

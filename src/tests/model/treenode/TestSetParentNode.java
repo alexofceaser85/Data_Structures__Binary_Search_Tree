@@ -9,6 +9,16 @@ import model.TreeNode;
 class TestSetParentNode {
 
 	@Test
+	public void shouldNotAllowNullParentNode() {
+		
+		TreeNode parent = new TreeNode("parent");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			parent.setParentNode(null);
+		});
+	}
+	
+	@Test
 	public void shouldNotSetNewRightChildEqualToPreviousRightChild() {
 		
 		TreeNode parent = new TreeNode("parent");

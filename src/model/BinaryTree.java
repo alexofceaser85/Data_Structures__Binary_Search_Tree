@@ -1,5 +1,7 @@
 package model;
 
+import errormessages.ErrorMessages;
+
 public class BinaryTree {
 	
 	private TreeNode rootNode;
@@ -36,6 +38,11 @@ public class BinaryTree {
 	 */
 	
 	public void setRootNode(TreeNode rootNodeToSet) {
+		
+		if (rootNodeToSet == null) {
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_ROOT_NODE_TO_NULL);
+		}
+		
 		this.rootNode = rootNodeToSet; 
 	}
 

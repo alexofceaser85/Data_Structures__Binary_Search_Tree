@@ -7,8 +7,17 @@ import org.junit.jupiter.api.Test;
 import model.BinaryTree;
 import model.TreeNode;
 
-class TestSetParentNode {
+class TestSetRootNode {
 
+	@Test
+	public void shouldNotSetRootNodeToNull() {
+		BinaryTree tree = new BinaryTree();
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			tree.setRootNode(null);
+		});
+	}
+	
 	@Test
 	public void shouldSetNewRootToTreeNode() {
 		BinaryTree tree = new BinaryTree();
