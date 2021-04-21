@@ -12,6 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import view.QuestionCodeBehind;
+import view.StartMenuCodeBehind;
 
 public class Main extends Application {
 	
@@ -26,20 +28,16 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle(THE_TITLE);
+		URL theURL = super.getClass().getResource(VIEW_EVENT_PANE_FXML);
 		
+		AnchorPane thePane = FXMLLoader.load(theURL);
+			
+		Scene theScene = new Scene(thePane);
 
-			
-			URL theURL = super.getClass().getResource(VIEW_EVENT_PANE_FXML);
-			
-			AnchorPane thePane = FXMLLoader.load(theURL);
-			
-			Scene theScene = new Scene(thePane);
-
-			primaryStage.setScene(theScene);
+		theScene.setRoot(thePane);
 		
-			primaryStage.show();
-
+		primaryStage.setScene(theScene);
+		primaryStage.show();
 	}
 
 }
