@@ -16,4 +16,6 @@ public class ErrorMessages {
 	public static final String THE_VALUE_OF_THE_NODE_CANNOT_BE_SET_TO_NULL = "The value of the node cannot be set to null";
 	public static final String THE_VALUE_OF_THE_NODE_CANNOT_BE_SET_TO_EMPTY = "The value of the node cannot be set to empty";
 	public static final String CANNOT_SET_ROOT_NODE_TO_NULL = "Cannot set the root node to null";
+	public static final String CANNOT_SET_QUESTION_TO_SET_TO_NULL = "Cannot set a question to null";
+	public static final String CANNOT_SET_QUESTION_TO_SET_TO_EMPTY = "Cannot set a question to empty";
 }

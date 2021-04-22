@@ -7,17 +7,24 @@ public class BinaryTree {
 	
 	private TreeNode rootNode;
 	private NodeType theNodeType;
+	private String userQuestion;
+	private TreeNode currentNode;
 	
 	/**
 	 * Creates a new binary tree
 	 * 
 	 * @precondition none
 	 * @postcondition this.rootNode == null
+	 * 				  this.theNodeType == nodeType
+	 * 				  this.currentNode == this.rootNode
+	 * 				  this.userQuestion == ""
 	 */
 	
 	public BinaryTree(NodeType nodeType) {
 		this.rootNode = null;
 		this.theNodeType = nodeType;
+		this.currentNode = this.rootNode;
+		this.userQuestion = "";
 	}
 	
 	/**
@@ -47,6 +54,45 @@ public class BinaryTree {
 	}
 	
 	/**
+	 * Gets the current node
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the current node
+	 */
+	
+	public TreeNode getCurrentNode() {
+		return this.currentNode;
+	}
+	
+	/**
+	 * Gets the user question
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the user question
+	 */
+	
+	public String getUserQuestion() {
+		return this.userQuestion;
+	}
+	
+	/**
+	 * Sets the user question
+	 * 
+	 * @precondition userQuestionToSet != null
+	 * 				 && !userQuestionToSet.isBlank()
+	 * 
+	 * @postcondition this.userQuestion == userQuestionToSet
+	 */
+	
+	public void setUserQuestion(String userQuestionToSet) {
+		this.userQuestion = userQuestionToSet;
+	}
+	
+	/**
 	 * Sets the root node for the binary tree
 	 * 
 	 * @precondition none
@@ -60,6 +106,17 @@ public class BinaryTree {
 		}
 		
 		this.rootNode = rootNodeToSet; 
+	}
+	
+	/**
+	 * Inserts a node into the tree
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 */
+	
+	public void insertNode(String description, NodeType nodeType) {
+		
 	}
 
 }

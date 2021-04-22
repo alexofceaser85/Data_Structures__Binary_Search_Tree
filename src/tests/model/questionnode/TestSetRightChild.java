@@ -1,16 +1,17 @@
-package tests.model.treenode;
+package tests.model.questionnode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import model.QuestionNode;
 import model.TreeNode;
 
 class TestSetRightChild {
 
 	@Test
 	public void shouldNotSetNullRightChild() {
-		TreeNode parent = new TreeNode("value");
+		QuestionNode parent = new QuestionNode("value");
 		assertThrows(IllegalArgumentException.class, () -> {
 			parent.setRightChild(null);
 		});
@@ -19,18 +20,18 @@ class TestSetRightChild {
 	@Test
 	public void shouldNotSetNewRightChildEqualToPreviousRightChild() {
 		
-		TreeNode parent = new TreeNode("parent");
-		parent.setRightChild(new TreeNode("value"));
+		QuestionNode parent = new QuestionNode("parent");
+		parent.setRightChild(new QuestionNode("value"));
 		
 		assertThrows(IllegalArgumentException.class, () -> {
-			parent.setRightChild(new TreeNode("value"));
+			parent.setRightChild(new QuestionNode("value"));
 		});
 	}
 	
 	@Test
 	public void shouldSetNewRightChild() {
-		TreeNode parent = new TreeNode("value");
-		TreeNode leftChild = new TreeNode("right value");
+		QuestionNode parent = new QuestionNode("value");
+		QuestionNode leftChild = new QuestionNode("right value");
 		
 		parent.setRightChild(leftChild);
 		
@@ -39,9 +40,9 @@ class TestSetRightChild {
 	
 	@Test
 	public void shouldReplaceExistingRightChild() {
-		TreeNode parent = new TreeNode("value");
-		TreeNode oldRightChild = new TreeNode("old right value");
-		TreeNode newRightChild = new TreeNode("new right value");
+		QuestionNode parent = new QuestionNode("value");
+		QuestionNode oldRightChild = new QuestionNode("old right value");
+		QuestionNode newRightChild = new QuestionNode("new right value");
 		parent.setRightChild(oldRightChild);
 		assertEquals("old right value", parent.getRightChild().getNodeValue());
 		parent.setRightChild(newRightChild);

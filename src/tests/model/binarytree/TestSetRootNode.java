@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import enums.NodeType;
 import model.BinaryTree;
+import model.QuestionNode;
 import model.TreeNode;
 
 class TestSetRootNode {
@@ -22,7 +23,7 @@ class TestSetRootNode {
 	@Test
 	public void shouldSetNewRootToTreeNode() {
 		BinaryTree tree = new BinaryTree(NodeType.ANSWER);
-		tree.setRootNode(new TreeNode("value"));
+		tree.setRootNode(new QuestionNode("value"));
 		
 		assertEquals("value", tree.getRootNode().getNodeValue());
 	}
