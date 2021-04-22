@@ -1,5 +1,6 @@
 package model;
 
+import enums.NodeType;
 import errormessages.ErrorMessages;
 
 public class QuestionNode extends TreeNode {
@@ -7,8 +8,8 @@ public class QuestionNode extends TreeNode {
 	private TreeNode leftChild;
 	private TreeNode rightChild;
 	
-	public QuestionNode(String value) {
-		super(value);
+	public QuestionNode(String value, NodeType nodeType) {
+		super(value, nodeType);
 		
 		this.leftChild = null;
 		this.rightChild = null;
@@ -51,6 +52,19 @@ public class QuestionNode extends TreeNode {
 	
 	public TreeNode getRightChild() {
 		return this.rightChild;
+	}
+	
+	/**
+	 * Gets the node type
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the node type
+	 */
+	
+	public NodeType getNodeType() {
+		return super.getNodeType();
 	}
 	
 	/**

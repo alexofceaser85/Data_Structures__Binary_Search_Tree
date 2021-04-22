@@ -1,5 +1,6 @@
 package model;
 
+import enums.NodeType;
 import errormessages.ErrorMessages;
 
 public class AnswerNode extends TreeNode {
@@ -13,8 +14,8 @@ public class AnswerNode extends TreeNode {
 	 * @param value the value for the answer node
 	 */
 	
-	public AnswerNode(String value) {
-		super(value);
+	public AnswerNode(String value, NodeType nodeType) {
+		super(value, nodeType);
 	}
 	
 	/**
@@ -41,6 +42,19 @@ public class AnswerNode extends TreeNode {
 	
 	public String getNodeValue() {
 		return super.getNodeValue();
+	}
+	
+	/**
+	 * Gets the node type
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the node type
+	 */
+	
+	public NodeType getNodeType() {
+		return super.getNodeType();
 	}
 	
 	/**

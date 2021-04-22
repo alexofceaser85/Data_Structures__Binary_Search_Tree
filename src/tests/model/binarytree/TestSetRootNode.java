@@ -13,7 +13,7 @@ class TestSetRootNode {
 
 	@Test
 	public void shouldNotSetRootNodeToNull() {
-		BinaryTree tree = new BinaryTree(NodeType.ANSWER);
+		BinaryTree tree = new BinaryTree();
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			tree.setRootNode(null);
@@ -22,8 +22,8 @@ class TestSetRootNode {
 	
 	@Test
 	public void shouldSetNewRootToTreeNode() {
-		BinaryTree tree = new BinaryTree(NodeType.ANSWER);
-		tree.setRootNode(new QuestionNode("value"));
+		BinaryTree tree = new BinaryTree();
+		tree.setRootNode(new QuestionNode("value", NodeType.ANSWER));
 		
 		assertEquals("value", tree.getRootNode().getNodeValue());
 	}

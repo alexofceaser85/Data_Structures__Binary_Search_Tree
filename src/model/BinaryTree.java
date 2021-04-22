@@ -6,7 +6,6 @@ import errormessages.ErrorMessages;
 public class BinaryTree {
 	
 	private TreeNode rootNode;
-	private NodeType theNodeType;
 	private String userQuestion;
 	private TreeNode currentNode;
 	
@@ -20,24 +19,10 @@ public class BinaryTree {
 	 * 				  this.userQuestion == ""
 	 */
 	
-	public BinaryTree(NodeType nodeType) {
+	public BinaryTree() {
 		this.rootNode = null;
-		this.theNodeType = nodeType;
 		this.currentNode = this.rootNode;
 		this.userQuestion = "";
-	}
-	
-	/**
-	 * Gets the node type
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the node type
-	 */
-	
-	public NodeType getNodeType() {
-		return this.theNodeType;
 	}
 	
 	/**
@@ -116,7 +101,7 @@ public class BinaryTree {
 	 */
 	
 	public void insertNode(String description, NodeType nodeType) {
-		
+		//if (this.currentNode.)
 	}
 
 }

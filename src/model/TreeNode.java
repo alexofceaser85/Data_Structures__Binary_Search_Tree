@@ -1,12 +1,13 @@
 package model;
 
+import enums.NodeType;
 import errormessages.ErrorMessages;
 
 public abstract class TreeNode {
 
 	private String nodeValue;
 	private TreeNode parentNode;
-	
+	private NodeType nodeType;
 	/**
 	 * Makes a new node on the tree
 	 * 
@@ -20,7 +21,7 @@ public abstract class TreeNode {
 	 * @param value the value of the new tree node
 	 */
 	
-	public TreeNode(String value) {
+	public TreeNode(String value, NodeType nodeType) {
 		
 		if (value == null) {
 			throw new IllegalArgumentException(ErrorMessages.VALUE_OF_NEW_TREE_NODE_CANNOT_BE_NULL);
@@ -31,6 +32,20 @@ public abstract class TreeNode {
 		
 		this.nodeValue = value;
 		this.parentNode = null;
+		this.nodeType = nodeType;
+	}
+	
+	/**
+	 * Gets the node type
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the node type
+	 */
+	
+	public NodeType getNodeType() {
+		return this.nodeType;
 	}
 	
 	/**

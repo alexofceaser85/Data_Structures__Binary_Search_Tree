@@ -11,16 +11,14 @@ class TestConstructor {
 
 	@Test
 	public void shouldSetInitialValuesForAnswerType() {
-		BinaryTree tree = new BinaryTree(NodeType.ANSWER);
+		BinaryTree tree = new BinaryTree();
 		assertNull(tree.getRootNode());
-		assertEquals(NodeType.ANSWER, tree.getNodeType());
 	}
 	
 	@Test
 	public void shouldSetInitialValuesForQuestionType() {
-		BinaryTree tree = new BinaryTree(NodeType.QUESTION);
+		BinaryTree tree = new BinaryTree();
 		assertNull(tree.getRootNode());
-		assertEquals(NodeType.QUESTION, tree.getNodeType());
 	}
 
 }
