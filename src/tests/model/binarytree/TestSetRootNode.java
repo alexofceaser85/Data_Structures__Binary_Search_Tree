@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import enums.NodeType;
 import model.BinaryTree;
 import model.TreeNode;
 
@@ -11,7 +12,7 @@ class TestSetRootNode {
 
 	@Test
 	public void shouldNotSetRootNodeToNull() {
-		BinaryTree tree = new BinaryTree();
+		BinaryTree tree = new BinaryTree(NodeType.ANSWER);
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			tree.setRootNode(null);
@@ -20,7 +21,7 @@ class TestSetRootNode {
 	
 	@Test
 	public void shouldSetNewRootToTreeNode() {
-		BinaryTree tree = new BinaryTree();
+		BinaryTree tree = new BinaryTree(NodeType.ANSWER);
 		tree.setRootNode(new TreeNode("value"));
 		
 		assertEquals("value", tree.getRootNode().getNodeValue());

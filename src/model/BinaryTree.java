@@ -1,10 +1,12 @@
 package model;
 
+import enums.NodeType;
 import errormessages.ErrorMessages;
 
 public class BinaryTree {
 	
 	private TreeNode rootNode;
+	private NodeType theNodeType;
 	
 	/**
 	 * Creates a new binary tree
@@ -13,8 +15,22 @@ public class BinaryTree {
 	 * @postcondition this.rootNode == null
 	 */
 	
-	public BinaryTree() {
+	public BinaryTree(NodeType nodeType) {
 		this.rootNode = null;
+		this.theNodeType = nodeType;
+	}
+	
+	/**
+	 * Gets the node type
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the node type
+	 */
+	
+	public NodeType getNodeType() {
+		return this.theNodeType;
 	}
 	
 	/**
