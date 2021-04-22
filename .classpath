@@ -10,5 +10,6 @@
 	<classpathentry kind="var" path="ECLIPSE_HOME/javafx-sdk-15.0.1/lib/javafx.swing.jar"/>
 	<classpathentry kind="var" path="ECLIPSE_HOME/javafx-sdk-15.0.1/lib/javafx.web.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
