@@ -18,4 +18,8 @@ public class ErrorMessages {
 	public static final String CANNOT_SET_ROOT_NODE_TO_NULL = "Cannot set the root node to null";
 	public static final String CANNOT_SET_QUESTION_TO_SET_TO_NULL = "Cannot set a question to null";
 	public static final String CANNOT_SET_QUESTION_TO_SET_TO_EMPTY = "Cannot set a question to empty";
+	public static final String CANNOT_INSERT_NEW_NODE_AT_QUESTION_NODE = "Cannot insert a new node at a question node";
+	
+	public static final String CANNOT_SET_NULL_USER_QUESTION = "Cannot set a null user question";
+	public static final String CANNOT_SET_EMPTY_USER_QUESTION = "Cannot set an empty user question";
 }

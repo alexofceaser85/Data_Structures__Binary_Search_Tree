@@ -18,17 +18,17 @@ class TestSetLeftChild {
 		});
 	}
 	
-	@Test
-	public void shouldNotSetNewLeftChildEqualToPreviousLeftChild() {
-		
-		QuestionNode parent = new QuestionNode("value", NodeType.QUESTION);
-		QuestionNode leftChild = new QuestionNode("left value", NodeType.QUESTION);
-		parent.setLeftChild(leftChild);
-		assertThrows(IllegalArgumentException.class, () -> {
-			parent.setLeftChild(new QuestionNode("left value", NodeType.QUESTION));
-		});
-	}
-	
+//	@Test
+//	public void shouldNotSetNewLeftChildEqualToPreviousLeftChild() {
+//		
+//		QuestionNode parent = new QuestionNode("value", NodeType.QUESTION);
+//		QuestionNode leftChild = new QuestionNode("left value", NodeType.QUESTION);
+//		parent.setLeftChild(leftChild);
+//		assertThrows(IllegalArgumentException.class, () -> {
+//			parent.setLeftChild(new QuestionNode("left value", NodeType.QUESTION));
+//		});
+//	}
+//	
 	@Test
 	public void shouldSetNewLeftChild() {
 		QuestionNode parent = new QuestionNode("value", NodeType.QUESTION);

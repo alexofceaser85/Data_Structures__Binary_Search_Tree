@@ -14,9 +14,8 @@ public class BinaryTree {
 	 * 
 	 * @precondition none
 	 * @postcondition this.rootNode == null
-	 * 				  this.theNodeType == nodeType
-	 * 				  this.currentNode == this.rootNode
-	 * 				  this.userQuestion == ""
+	 * 				  && this.currentNode == this.rootNode
+	 * 				  && this.userQuestion == ""
 	 */
 	
 	public BinaryTree() {
@@ -74,6 +73,14 @@ public class BinaryTree {
 	 */
 	
 	public void setUserQuestion(String userQuestionToSet) {
+		
+		if (userQuestionToSet == null) {
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_NULL_USER_QUESTION);
+		}
+		if (userQuestionToSet.isBlank()) {
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_EMPTY_USER_QUESTION);
+		}
+		
 		this.userQuestion = userQuestionToSet;
 	}
 	
@@ -91,6 +98,20 @@ public class BinaryTree {
 		}
 		
 		this.rootNode = rootNodeToSet; 
+		this.currentNode = this.rootNode;
+	}
+	
+	/**
+	 * Sets the current node
+	 * 
+	 * @precondition currentNodeToSet != null
+	 * @postcondition this.currentNode.equals(currentNodeToSet)
+	 * 
+	 * @param currentNodeToSet the node to set as the current node
+	 */
+	
+	public void setCurrentNode(TreeNode currentNodeToSet) {
+		this.currentNode = currentNodeToSet;
 	}
 	
 	/**
@@ -100,8 +121,56 @@ public class BinaryTree {
 	 * @postcondition none
 	 */
 	
-	public void insertNode(String description, NodeType nodeType) {
-		//if (this.currentNode.)
+	public void insertNode(String questionDescription, String answerDescription, NodeType nodeType, boolean responseToQuestion) {
+		if (this.currentNode.getNodeType().equals(NodeType.QUESTION)) {
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_INSERT_NEW_NODE_AT_QUESTION_NODE);
+		} else {
+			AnswerNode theAnswerNode = (AnswerNode) this.currentNode;
+			QuestionNode theQuestionNode = new QuestionNode(questionDescription, NodeType.QUESTION);
+			AnswerNode theNewAnswerNode = new AnswerNode(answerDescription, NodeType.ANSWER);
+			QuestionNode answerNodesParent = (QuestionNode) theAnswerNode.getParentNode();
+			
+			if (this.rootNode.getNodeType().equals(NodeType.ANSWER)) {
+				this.rootNode = theQuestionNode;
+				theNewAnswerNode.setParentNode(theQuestionNode);
+				theAnswerNode.setParentNode(theQuestionNode);
+				
+				if (responseToQuestion == true) {
+					theQuestionNode.setLeftChild(theNewAnswerNode);
+					theQuestionNode.setRightChild(theAnswerNode);
+				} else {
+					theQuestionNode.setLeftChild(theAnswerNode);
+					theQuestionNode.setRightChild(theNewAnswerNode);
+				}
+					
+			} else {
+				if (answerNodesParent.getLeftChild().getNodeValue().equals(theAnswerNode.getNodeValue())) {
+					
+					if (responseToQuestion == true) {
+						theQuestionNode.setLeftChild(theNewAnswerNode);
+						theQuestionNode.setRightChild(theAnswerNode);
+						answerNodesParent.setLeftChild(theQuestionNode);
+					} else {
+						theQuestionNode.setLeftChild(theAnswerNode);
+						theQuestionNode.setRightChild(theNewAnswerNode);
+						answerNodesParent.setLeftChild(theQuestionNode);
+					}
+					
+					answerNodesParent.setLeftChild(theQuestionNode);
+				} else {
+					
+					if (responseToQuestion == true) {
+						theQuestionNode.setLeftChild(theNewAnswerNode);
+						theQuestionNode.setRightChild(theAnswerNode);
+						answerNodesParent.setRightChild(theQuestionNode);
+					} else {
+						theQuestionNode.setLeftChild(theAnswerNode);
+						theQuestionNode.setRightChild(theNewAnswerNode);
+						answerNodesParent.setRightChild(theQuestionNode);
+					}
+				} 
+			}
+		}
 	}
 
 }

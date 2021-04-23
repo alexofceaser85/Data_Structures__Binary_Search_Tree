@@ -101,10 +101,6 @@ public class QuestionNode extends TreeNode {
 			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_A_NULL_LEFT_CHILD);
 		}
 		
-		if (this.leftChild != null && this.leftChild.getNodeValue().equals(nodeToSet.getNodeValue())) {
-			throw new IllegalArgumentException(ErrorMessages.THE_VALUE_OF_THE_LEFT_CHILD_CANNOT_BE_THE_SAME_AS_PREVIOUS);
-		}
-		
 		this.leftChild = nodeToSet;
 	}
 	
@@ -120,11 +116,7 @@ public class QuestionNode extends TreeNode {
 		if (nodeToSet == null) {
 			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_A_NULL_RIGHT_CHILD);
 		}
-		
-		if (this.rightChild != null && this.rightChild.getNodeValue().equals(nodeToSet.getNodeValue())) {
-			throw new IllegalArgumentException(ErrorMessages.THE_VALUE_OF_THE_RIGHT_CHILD_CANNOT_BE_THE_SAME_AS_PREVIOUS);
-		}
-		
+
 		this.rightChild = nodeToSet;
 	}
 
