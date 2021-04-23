@@ -64,6 +64,78 @@ public class BinaryTree {
 	}
 	
 	/**
+	 * Traverses to the parent of the current node
+	 * 
+	 * @precondition none
+	 * @postcondition this.currentNode == this.currentNode.getParent()@prev
+	 * 
+	 * @return true if traversed to parent false otherwise
+	 */
+	
+	public boolean traverseToParent() {
+		if (this.currentNode == null) {
+			return false;
+		}
+		
+		TreeNode parent = this.currentNode.getParentNode();
+		
+		if (parent != null) {
+			this.currentNode = parent;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Traverses to the left child of the current node
+	 * 
+	 * @precondition none
+	 * @postcondition this.currentNode == this.currentNode.getLeftChild()@prev
+	 * 
+	 * @return true if traversed to left child false otherwise
+	 */
+	
+	public boolean traverseToLeftChild() {
+		
+		if (this.currentNode == null) {
+			return false;
+		}
+		
+		if (this.currentNode.getNodeType().equals(NodeType.ANSWER)) {
+			return false;
+		}
+		
+		QuestionNode question = (QuestionNode) this.currentNode;
+		this.currentNode = question.getLeftChild();
+		return true;
+	}
+	
+	/**
+	 * Traverses to the right child of the current node
+	 * 
+	 * @precondition none
+	 * @postcondition this.currentNode == this.currentNode.getRightChild()@prev
+	 * 
+	 * @return true if traversed to right child false otherwise
+	 */
+	
+	public boolean traverseToRightChild() {
+		
+		if (this.currentNode == null) {
+			return false;
+		}
+		
+		if (this.currentNode.getNodeType().equals(NodeType.ANSWER)) {
+			return false;
+		}
+		
+		QuestionNode question = (QuestionNode) this.currentNode;
+		this.currentNode = question.getRightChild();
+		return true;
+	}
+	
+	/**
 	 * Sets the user question
 	 * 
 	 * @precondition userQuestionToSet != null
@@ -87,7 +159,7 @@ public class BinaryTree {
 	/**
 	 * Sets the root node for the binary tree
 	 * 
-	 * @precondition none
+	 * @precondition rootNodeToSet != null
 	 * @postcondition this.rootNode == rootNodeToSet
 	 */
 	
@@ -138,9 +210,11 @@ public class BinaryTree {
 				if (responseToQuestion == true) {
 					theQuestionNode.setLeftChild(theNewAnswerNode);
 					theQuestionNode.setRightChild(theAnswerNode);
+					this.currentNode = theQuestionNode.getLeftChild();
 				} else {
 					theQuestionNode.setLeftChild(theAnswerNode);
 					theQuestionNode.setRightChild(theNewAnswerNode);
+					this.currentNode = theQuestionNode.getRightChild();
 				}
 					
 			} else {
@@ -150,10 +224,18 @@ public class BinaryTree {
 						theQuestionNode.setLeftChild(theNewAnswerNode);
 						theQuestionNode.setRightChild(theAnswerNode);
 						answerNodesParent.setLeftChild(theQuestionNode);
+						theQuestionNode.setParentNode(answerNodesParent);
+						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+						this.currentNode = theQuestionNode.getLeftChild();
 					} else {
 						theQuestionNode.setLeftChild(theAnswerNode);
 						theQuestionNode.setRightChild(theNewAnswerNode);
 						answerNodesParent.setLeftChild(theQuestionNode);
+						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+						theQuestionNode.setParentNode(answerNodesParent);
+						this.currentNode = theQuestionNode.getRightChild();
 					}
 					
 					answerNodesParent.setLeftChild(theQuestionNode);
@@ -163,10 +245,18 @@ public class BinaryTree {
 						theQuestionNode.setLeftChild(theNewAnswerNode);
 						theQuestionNode.setRightChild(theAnswerNode);
 						answerNodesParent.setRightChild(theQuestionNode);
+						theQuestionNode.setParentNode(answerNodesParent);
+						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+						this.currentNode = theQuestionNode.getLeftChild();
 					} else {
 						theQuestionNode.setLeftChild(theAnswerNode);
 						theQuestionNode.setRightChild(theNewAnswerNode);
 						answerNodesParent.setRightChild(theQuestionNode);
+						theQuestionNode.setParentNode(answerNodesParent);
+						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+						this.currentNode = theQuestionNode.getRightChild();
 					}
 				} 
 			}
