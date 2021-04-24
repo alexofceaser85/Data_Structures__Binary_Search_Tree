@@ -90,7 +90,7 @@ public class BinaryTree {
 	/**
 	 * Traverses to the left child of the current node
 	 * 
-	 * @precondition none
+	 * @precondition this.currentNode != null
 	 * @postcondition this.currentNode == this.currentNode.getLeftChild()@prev
 	 * 
 	 * @return true if traversed to left child false otherwise
@@ -99,7 +99,7 @@ public class BinaryTree {
 	public boolean traverseToLeftChild() {
 		
 		if (this.currentNode == null) {
-			return false;
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_TRAVERSE_LEFT_ON_AN_EMPTY_TREE);
 		}
 		
 		if (this.currentNode.getNodeType().equals(NodeType.ANSWER)) {
@@ -114,7 +114,7 @@ public class BinaryTree {
 	/**
 	 * Traverses to the right child of the current node
 	 * 
-	 * @precondition none
+	 * @precondition this.currentNode != null
 	 * @postcondition this.currentNode == this.currentNode.getRightChild()@prev
 	 * 
 	 * @return true if traversed to right child false otherwise
@@ -123,7 +123,7 @@ public class BinaryTree {
 	public boolean traverseToRightChild() {
 		
 		if (this.currentNode == null) {
-			return false;
+			throw new IllegalArgumentException(ErrorMessages.CANNOT_TRAVERSE_RIGHT_ON_AN_EMPTY_TREE);
 		}
 		
 		if (this.currentNode.getNodeType().equals(NodeType.ANSWER)) {
@@ -142,6 +142,8 @@ public class BinaryTree {
 	 * 				 && !userQuestionToSet.isBlank()
 	 * 
 	 * @postcondition this.userQuestion == userQuestionToSet
+	 * 
+	 * @param userQuestionToSet the user question to set
 	 */
 	
 	public void setUserQuestion(String userQuestionToSet) {
@@ -161,6 +163,8 @@ public class BinaryTree {
 	 * 
 	 * @precondition rootNodeToSet != null
 	 * @postcondition this.rootNode == rootNodeToSet
+	 * 
+	 * @param rootNodeToSet the root node to set
 	 */
 	
 	public void setRootNode(TreeNode rootNodeToSet) {

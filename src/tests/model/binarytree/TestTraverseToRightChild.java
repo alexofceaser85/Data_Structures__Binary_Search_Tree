@@ -14,7 +14,9 @@ class TestTraverseToRightChild {
 	@Test
 	public void shouldReturnFalseForEmptyTree() {
 		BinaryTree tree = new BinaryTree();
-		assertFalse(tree.traverseToRightChild());
+		assertThrows(IllegalArgumentException.class, () -> {
+			tree.traverseToRightChild();
+		});
 	}
 	
 	@Test
