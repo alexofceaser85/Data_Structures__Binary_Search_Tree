@@ -22,4 +22,7 @@ public class ErrorMessages {
 	
 	public static final String CANNOT_SET_NULL_USER_QUESTION = "Cannot set a null user question";
 	public static final String CANNOT_SET_EMPTY_USER_QUESTION = "Cannot set an empty user question";
+	
+	public static final String CANNOT_TRAVERSE_LEFT_ON_AN_EMPTY_TREE = "Cannot traverse left on an empty tree";
+	public static final String CANNOT_TRAVERSE_RIGHT_ON_AN_EMPTY_TREE = "Cannot traverse right on an empty tree";
 }

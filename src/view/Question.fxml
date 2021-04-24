@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="201.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QuestionCodeBehind">
+<AnchorPane prefHeight="201.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QuestionCodeBehind">
    <children>
       <GridPane layoutX="-151.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -27,8 +27,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="noButton" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="No" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button fx:id="yesButton" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Yes" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="noButton" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" onAction="#traverseRight" prefHeight="30.0" prefWidth="100.0" text="No" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="yesButton" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" onAction="#traverseLeft" prefHeight="30.0" prefWidth="100.0" text="Yes" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
             <Label fx:id="questionLabel" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
