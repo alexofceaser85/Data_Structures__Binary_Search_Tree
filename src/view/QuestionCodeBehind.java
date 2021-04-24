@@ -50,55 +50,33 @@ public class QuestionCodeBehind {
     
     @FXML
     void traverseLeft(ActionEvent event) {
-    	if (this.binaryTreeViewModel.traverseToLeftChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
-    		this.updateGUI();
-    	} else {
-    		this.switchToWinningScreen(event);
+    	try {
+        	if (this.binaryTreeViewModel.traverseToLeftChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
+        		this.updateGUI();
+        	} else {
+        		this.switchToWinningScreen(event);
+        	}
+    	} catch (IllegalArgumentException e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText(e.getMessage());
+    		alert.setTitle("Could Not Traverse Left");
+    		alert.showAndWait();
     	}
     }
 
     @FXML
     void traverseRight(ActionEvent event) {
-    	if (this.binaryTreeViewModel.traverseToRightChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
-    		this.updateGUI();
-    	} else {
-    		this.switchToWinningScreen(event);
-    	}
-    }
-    
-    private void switchToHumanWins(ActionEvent actionEvent) {
     	try {
-            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HumanWins.fxml"));
-    		Parent root = (Parent) loader.load();
-    		HumanWinsCodeBehind controller = loader.<HumanWinsCodeBehind>getController();
-    		controller.setViewModel(this.binaryTreeViewModel);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
-    	} catch (IOException e) {
-    		
-    	}
-    }
-    
-    private void switchToMain(ActionEvent actionEvent) {
-    	try {
-            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
-    		Parent root = (Parent) loader.load();
-    		StartMenuCodeBehind controller = loader.<StartMenuCodeBehind>getController();
-    		controller.setViewModel(this.binaryTreeViewModel);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
-    	} catch (IOException e) {
-    		
+        	if (this.binaryTreeViewModel.traverseToRightChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
+        		this.updateGUI();
+        	} else {
+        		this.switchToWinningScreen(event);
+        	}
+    	} catch (IllegalArgumentException e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText(e.getMessage());
+    		alert.setTitle("Could Not Traverse Right");
+    		alert.showAndWait();
     	}
     }
     
@@ -119,6 +97,48 @@ public class QuestionCodeBehind {
     		this.switchToMain(actionEvent);
     	} else {
     		this.switchToHumanWins(actionEvent);
+    	}
+    }
+    
+    private void switchToHumanWins(ActionEvent actionEvent) {
+    	try {
+            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+    		
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HumanWins.fxml"));
+    		Parent root = (Parent) loader.load();
+    		HumanWinsCodeBehind controller = loader.<HumanWinsCodeBehind>getController();
+    		controller.setViewModel(this.binaryTreeViewModel);
+    		
+    		Scene theScene = new Scene(root);
+            primaryStage.setScene(theScene);
+
+            primaryStage.show();
+    	} catch (IOException e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Human Wins GUI load error");
+    		alert.setTitle("Load Error");
+    		alert.showAndWait();
+    	}
+    }
+    
+    private void switchToMain(ActionEvent actionEvent) {
+    	try {
+            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+    		
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
+    		Parent root = (Parent) loader.load();
+    		StartMenuCodeBehind controller = loader.<StartMenuCodeBehind>getController();
+    		controller.setViewModel(this.binaryTreeViewModel);
+    		
+    		Scene theScene = new Scene(root);
+            primaryStage.setScene(theScene);
+
+            primaryStage.show();
+    	} catch (IOException e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Start Menu GUI load error");
+    		alert.setTitle("Load Error");
+    		alert.showAndWait();
     	}
     }
 }

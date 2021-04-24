@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 
 import enums.NodeType;
+import errormessages.ErrorMessages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,8 +48,12 @@ public class HumanWinsCodeBehind {
     @FXML
     void submitAnimal(ActionEvent event) {
     	try {
-    		this.binaryTreeViewModel.insertNode(questionTextField.getText(), answerTextField.getText(), NodeType.QUESTION, this.distinguishQuestionYes.isSelected());
-        	this.switchToStart(event);
+    		if (!distinguishQuestionYes.isSelected() && !distinguishQuestionNo.isSelected()) {
+    			throw new IllegalArgumentException(ErrorMessages.CANNOT_ADD_NEW_NODE_WITHOUT_SELECTING_NODE_SIZE);
+    		} else {
+        		this.binaryTreeViewModel.insertNode(questionTextField.getText(), answerTextField.getText(), NodeType.QUESTION, this.distinguishQuestionYes.isSelected());
+            	this.switchToStart(event);
+    		}
     	} catch (IllegalArgumentException e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText(e.getMessage());
@@ -72,7 +77,10 @@ public class HumanWinsCodeBehind {
 
             primaryStage.show();
     	} catch (IOException e) {
-    		
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Start Menu GUI load error");
+    		alert.setTitle("Load Error");
+    		alert.showAndWait();
     	}
     }
 }

@@ -25,4 +25,5 @@ public class ErrorMessages {
 	
 	public static final String CANNOT_TRAVERSE_LEFT_ON_AN_EMPTY_TREE = "Cannot traverse left on an empty tree";
 	public static final String CANNOT_TRAVERSE_RIGHT_ON_AN_EMPTY_TREE = "Cannot traverse right on an empty tree";
+	public static final String CANNOT_ADD_NEW_NODE_WITHOUT_SELECTING_NODE_SIZE = "Please select if your animal is the answer to the question";
 }

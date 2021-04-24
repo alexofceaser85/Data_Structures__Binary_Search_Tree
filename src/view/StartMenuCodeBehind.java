@@ -37,12 +37,7 @@ public class StartMenuCodeBehind {
     @FXML
     private Button playButton;
     
-    private Scene firstScene;
     private BinaryTreeViewModel theBinaryTree;
-
-    public void setFirstScene(Scene scene) {
-        firstScene = scene;
-    }
     
     public StartMenuCodeBehind() {
     	this.theBinaryTree = new BinaryTreeViewModel();
@@ -75,7 +70,10 @@ public class StartMenuCodeBehind {
                 primaryStage.show();
     		}
     	} catch (IOException e) {
-    		
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Question GUI load error");
+    		alert.setTitle("Load Error");
+    		alert.showAndWait();
     	}
     }
     
@@ -112,7 +110,10 @@ public class StartMenuCodeBehind {
 
             primaryStage.show();
     	} catch (IOException e) {
-    		
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Human Wins GUI load error");
+    		alert.setTitle("Load Error");
+    		alert.showAndWait();
     	}
     }
 
