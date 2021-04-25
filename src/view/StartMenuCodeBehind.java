@@ -1,9 +1,13 @@
 package view;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 
+import data.fileparsers.InitialAnimalGuessesParser;
+import data.filepaths.FilePaths;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +26,7 @@ import javafx.stage.Stage;
 import main.Main;
 import model.AnswerNode;
 import viewmodel.BinaryTreeViewModel;
+import viewmodel.InitialAnimalGuessViewModel;
 
 public class StartMenuCodeBehind {
 
@@ -51,8 +56,9 @@ public class StartMenuCodeBehind {
     public void switchToQuestion(ActionEvent actionEvent) {
     	try {
     		if (this.theBinaryTree.getCurrentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode().getNodeType().equals(NodeType.ANSWER)) {
-    			System.out.println(this.theBinaryTree.getCurrentNode());
-    			this.theBinaryTree.setRootNode(new AnswerNode("deer", NodeType.ANSWER));
+
+    			
+    			this.theBinaryTree.setRootNode(new AnswerNode(this.getInitialNode(), NodeType.ANSWER));
     			this.switchToWinningScreen(actionEvent);
     		} else {
         		this.theBinaryTree.setCurrentNode(this.theBinaryTree.getRootNode());
@@ -75,6 +81,23 @@ public class StartMenuCodeBehind {
     		alert.setTitle("Load Error");
     		alert.showAndWait();
     	}
+    }
+    
+    private String getInitialNode() {
+    	try {
+    		InitialAnimalGuessesParser theParser = new InitialAnimalGuessesParser();
+			theParser.parseFile(FilePaths.RANDOM_GUESS_FILE);
+			ArrayList<String> theAnimalDictionary = theParser.getGuesses();
+			
+			InitialAnimalGuessViewModel theInitalGuesses = new InitialAnimalGuessViewModel(theAnimalDictionary);
+			return theInitalGuesses.pickRandom(0, theAnimalDictionary.size());
+		} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText("Could not load the inital animal guesses file");
+        	cannotFindAnimalGuessAlert.showAndWait();
+        	return "Could not find animal";
+		}
     }
     
     private void switchToWinningScreen(ActionEvent actionEvent) {

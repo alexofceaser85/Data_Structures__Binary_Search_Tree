@@ -26,4 +26,9 @@ public class ErrorMessages {
 	public static final String CANNOT_TRAVERSE_LEFT_ON_AN_EMPTY_TREE = "Cannot traverse left on an empty tree";
 	public static final String CANNOT_TRAVERSE_RIGHT_ON_AN_EMPTY_TREE = "Cannot traverse right on an empty tree";
 	public static final String CANNOT_ADD_NEW_NODE_WITHOUT_SELECTING_NODE_SIZE = "Please select if your animal is the answer to the question";
+	
+	public static final String CANNOT_ADD_NEW_INITIAL_ANIMAL_GUESS_WITH_NULL_GUESSES = "Cannot add a new initial animal guess with null animal guesses";
+	public static final String CANNOT_PICK_RANDOM_WITH_MINIMUM_INDEX_BELOW_ZERO = "Cannot pick random with minimum index below zero";
+	public static final String CANNOT_PICK_RANDOM_WITH_MAXIMUM_INDEX_ABOVE_OR_EQUAL_TO_ARRAY_SIZE = "Cannot pick random with maximum index equal to or above array size";
+	public static final String CANNOT_PICK_RANDOM_WITH_MINIMUM_INDEX_ABOVE_OR_EQUAL_TO_MAXIMUM = "Cannot pick random with minimum index above or equal to maximum index";
 }
