@@ -3,10 +3,29 @@ package model;
 import enums.NodeType;
 import errormessages.ErrorMessages;
 
+/**
+ * The question node
+ * 
+ * @author Alex DeCesare
+ * @version 21-April-2021
+ */
+
 public class QuestionNode extends TreeNode {
 
 	private TreeNode leftChild;
 	private TreeNode rightChild;
+	
+	/**
+	 * The constructor for the question node
+	 * 
+	 * @precondition none
+	 * @postcondition 
+	 * 		this.leftChild == null 
+	 * 		&& this.rightChild == null
+	 * 
+	 * @param value the value of the question node
+	 * @param nodeType the type of the question node
+	 */
 	
 	public QuestionNode(String value, NodeType nodeType) {
 		super(value, nodeType);
@@ -72,6 +91,8 @@ public class QuestionNode extends TreeNode {
 	 * 
 	 * @precondition none
 	 * @postcondition none
+	 * 
+	 * @param valueToSet the value to set for the node
 	 */
 	public void setValue(String valueToSet) {
 		super.setValue(valueToSet);
@@ -82,6 +103,8 @@ public class QuestionNode extends TreeNode {
 	 * 
 	 * @precondition none
 	 * @postcondition none
+	 * 
+	 * @param parentNodeToSet the parent node to set
 	 */
 	
 	public void setParentNode(TreeNode parentNodeToSet) {
@@ -92,7 +115,9 @@ public class QuestionNode extends TreeNode {
 	 * Sets the left child to a node
 	 * 
 	 * @precondition !nodeToSet.getNodeValue().equals(this.rightChild.getNodeValue()@prev)
-	 * @postcondition none
+	 * @postcondition this.leftChild == nodeToSet
+	 * 
+	 * @param nodeToSet the node to set as the left child
 	 */
 	
 	public void setLeftChild(TreeNode nodeToSet) {
@@ -108,7 +133,9 @@ public class QuestionNode extends TreeNode {
 	 * Sets the right child to a node
 	 * 
 	 * @precondition !nodeToSet.getNodeValue().equals(this.rightChild.getNodeValue()@prev)
-	 * @postcondition none
+	 * @postcondition this.rightChild == nodeToSet
+	 * 
+	 * @param nodeToSet the node to set as the right child
 	 */
 	
 	public void setRightChild(TreeNode nodeToSet) {

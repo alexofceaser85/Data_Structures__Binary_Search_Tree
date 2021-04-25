@@ -2,7 +2,6 @@ package view;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -21,12 +20,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import main.Main;
 import model.AnswerNode;
 import viewmodel.BinaryTreeViewModel;
 import viewmodel.InitialAnimalGuessViewModel;
+
+/**
+ * The code behind for the start menu screen
+ * 
+ * @author Alex DeCesare
+ * @version 20-April-2021
+ */
 
 public class StartMenuCodeBehind {
 
@@ -44,13 +48,38 @@ public class StartMenuCodeBehind {
     
     private BinaryTreeViewModel theBinaryTree;
     
+    /**
+     * The constructor for the code behind
+     * 
+     * @precondition none
+     * @postcondition this.theBinaryTree == new BinaryTreeViewModel()
+     */
+    
     public StartMenuCodeBehind() {
     	this.theBinaryTree = new BinaryTreeViewModel();
     }
     
+    /**
+     * Sets the view model for the start menu code behind
+     * 
+     * @precondition none
+     * @postcondition this.theBinaryTree == binaryTreeToSet
+     * 
+     * @param binaryTreeToSet the binary tree view model to set
+     */
+    
     public void setViewModel(BinaryTreeViewModel binaryTreeToSet) {
     	this.theBinaryTree = binaryTreeToSet;
     }
+    
+    /**
+     * Switches to the question screen
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     * @param actionEvent the event
+     */
     
     @FXML
     public void switchToQuestion(ActionEvent actionEvent) {
@@ -62,7 +91,7 @@ public class StartMenuCodeBehind {
     			this.switchToWinningScreen(actionEvent);
     		} else {
         		this.theBinaryTree.setCurrentNode(this.theBinaryTree.getRootNode());
-                Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+                Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         		
         		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Question.fxml"));
         		Parent root = (Parent) loader.load();
@@ -113,7 +142,7 @@ public class StartMenuCodeBehind {
     		Alert computerWinsAlert = new Alert(AlertType.INFORMATION);
     		computerWinsAlert.setTitle("The computers guess is this: ");
     		computerWinsAlert.setContentText("The computer correctly guessed your animal");
-        	Optional<ButtonType> computerWinsResult = computerWinsAlert.showAndWait();
+        	computerWinsAlert.showAndWait();
     	} else {
     		this.switchToHumanWins(actionEvent);
     	}
@@ -121,7 +150,7 @@ public class StartMenuCodeBehind {
     
     private void switchToHumanWins(ActionEvent actionEvent) {
     	try {
-            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     		
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HumanWins.fxml"));
     		Parent root = (Parent) loader.load();

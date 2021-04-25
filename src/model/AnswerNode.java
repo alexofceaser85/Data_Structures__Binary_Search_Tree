@@ -1,7 +1,13 @@
 package model;
 
 import enums.NodeType;
-import errormessages.ErrorMessages;
+
+/**
+ * The answer node
+ * 
+ * @author Alex DeCesare
+ * @version 22-April-2021
+ */
 
 public class AnswerNode extends TreeNode {
 
@@ -12,6 +18,7 @@ public class AnswerNode extends TreeNode {
 	 * @postcondition none
 	 * 
 	 * @param value the value for the answer node
+	 * @param nodeType the type of the answer node
 	 */
 	
 	public AnswerNode(String value, NodeType nodeType) {

@@ -1,5 +1,12 @@
 package errormessages;
 
+/**
+ * Holds the error messages
+ * 
+ * @author Alex DeCesare
+ * @version 21-April-2021
+ */
+
 public class ErrorMessages {
 
 	public static final String VALUE_OF_NEW_TREE_NODE_CANNOT_BE_NULL = "The value of the new tree node cannot be null";

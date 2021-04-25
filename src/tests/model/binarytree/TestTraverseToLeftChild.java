@@ -1,6 +1,9 @@
 package tests.model.binarytree;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +14,8 @@ import model.QuestionNode;
 
 class TestTraverseToLeftChild {
 
+	private final String answerNodeValue = "Dog";
+	
 	@Test
 	public void shouldReturnFalseForEmptyTree() {
 		BinaryTree tree = new BinaryTree();
@@ -31,7 +36,7 @@ class TestTraverseToLeftChild {
 	@Test
 	public void shouldReturnTrueForTreeWithTwoLevels() {
 		BinaryTree tree = new BinaryTree();
-		AnswerNode parent = new AnswerNode("Dog", NodeType.ANSWER);
+		AnswerNode parent = new AnswerNode(this.answerNodeValue, NodeType.ANSWER);
 		tree.setRootNode(parent);
 		assertEquals("Dog", tree.getCurrentNode().getNodeValue());
 
@@ -39,8 +44,8 @@ class TestTraverseToLeftChild {
 		assertEquals("Does it fly?", tree.getRootNode().getNodeValue());
 		QuestionNode question = (QuestionNode) tree.getRootNode();
 		assertEquals("Bird", question.getLeftChild().getNodeValue());
-		assertEquals("Dog", question.getRightChild().getNodeValue());
-		assertEquals("Bird",tree.getCurrentNode().getNodeValue());
+		assertEquals(this.answerNodeValue, question.getRightChild().getNodeValue());
+		assertEquals("Bird", tree.getCurrentNode().getNodeValue());
 		
 		tree.setCurrentNode(tree.getRootNode());
 		assertTrue(tree.traverseToLeftChild());
@@ -50,16 +55,16 @@ class TestTraverseToLeftChild {
 	@Test
 	public void shouldReturnTrueForTreeWithThreeLevels() {
 		BinaryTree tree = new BinaryTree();
-		AnswerNode parent = new AnswerNode("Dog", NodeType.ANSWER);
+		AnswerNode parent = new AnswerNode(this.answerNodeValue, NodeType.ANSWER);
 		tree.setRootNode(parent);
-		assertEquals("Dog", tree.getCurrentNode().getNodeValue());
+		assertEquals(this.answerNodeValue, tree.getCurrentNode().getNodeValue());
 
 		tree.insertNode("Does it fly?", "Vulture", NodeType.QUESTION, true);
 		assertEquals("Does it fly?", tree.getRootNode().getNodeValue());
 		QuestionNode question = (QuestionNode) tree.getRootNode();
 		assertEquals("Vulture", question.getLeftChild().getNodeValue());
-		assertEquals("Dog", question.getRightChild().getNodeValue());
-		assertEquals("Vulture",tree.getCurrentNode().getNodeValue());
+		assertEquals(this.answerNodeValue, question.getRightChild().getNodeValue());
+		assertEquals("Vulture", tree.getCurrentNode().getNodeValue());
 
 		tree.insertNode("Does it swim?", "Duck", NodeType.QUESTION, true);
 		assertEquals("Duck", tree.getCurrentNode().getNodeValue());

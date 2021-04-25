@@ -22,7 +22,7 @@ public class InitialAnimalGuessViewModel {
 	 * @precondition animalGuesses != null
 	 * @postcondition this.animalGuesses == animalGuesses
 	 * 
-	 * @param animalGuesses
+	 * @param animalGuesses the animal guess data
 	 */
 	
 	public InitialAnimalGuessViewModel(ArrayList<String> animalGuesses) {
@@ -52,6 +52,9 @@ public class InitialAnimalGuessViewModel {
 	 * 
 	 * @precondition minimumIndex >= 0 && maximumIndex < this.animalGuesses.size()
 	 * @postcondition none
+	 * 
+	 * @param minimumIndex the minimum index to find random for
+	 * @param maximumIndex the maximum index to find random for
 	 * 
 	 * @return randomGuess the random guess
 	 */

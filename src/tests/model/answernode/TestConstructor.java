@@ -1,12 +1,12 @@
 package tests.model.answernode;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import enums.NodeType;
 import model.AnswerNode;
-import model.QuestionNode;
 
 class TestConstructor {
 

@@ -4,6 +4,13 @@ import enums.NodeType;
 import model.BinaryTree;
 import model.TreeNode;
 
+/**
+ * The view model for the binary tree
+ * 
+ * @author Alex DeCesare
+ * @version 24-April-2021
+ */
+
 public class BinaryTreeViewModel {
 
 	private BinaryTree theBinaryTree;
@@ -155,6 +162,11 @@ public class BinaryTreeViewModel {
 	 * 
 	 * @precondition none
 	 * @postcondition none
+	 * 
+	 * @param questionDescription the description of the question to insert
+	 * @param answerDescription the description of the answer to the question
+	 * @param nodeType the type of the node to insert
+	 * @param responseToQuestion if the answer is the correct answer to the question or not
 	 */
 	
 	public void insertNode(String questionDescription, String answerDescription, NodeType nodeType, boolean responseToQuestion) {

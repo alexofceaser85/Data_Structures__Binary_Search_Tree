@@ -1,10 +1,9 @@
 package tests.model.binarytree;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import enums.NodeType;
 import model.BinaryTree;
 
 class TestConstructor {

@@ -3,6 +3,13 @@ package model;
 import enums.NodeType;
 import errormessages.ErrorMessages;
 
+/**
+ * The tree node
+ *
+ * @author Alex DeCesare
+ * @version 20-April-2021
+ */
+
 public abstract class TreeNode {
 
 	private String nodeValue;
@@ -19,6 +26,7 @@ public abstract class TreeNode {
 	 * 		&& this.parentNode == null
 	 * 
 	 * @param value the value of the new tree node
+	 * @param nodeType the type of the tree node
 	 */
 	
 	public TreeNode(String value, NodeType nodeType) {
@@ -79,6 +87,8 @@ public abstract class TreeNode {
 	 * 
 	 * @precondition valueToSet != null && !valueToSet.isBlank()
 	 * @postcondition this.value == valueToSet
+	 * 
+	 * @param valueToSet the value of the node to set
 	 */
 	
 	public void setValue(String valueToSet) {
@@ -99,6 +109,8 @@ public abstract class TreeNode {
 	 * 		parentNodeToSet != null
 	 * 		!parentNodeToSet.getNodeValue().equals(this.parentNode.getNodeValue()@prev)
 	 * @postcondition this.parentNode == parentNodeToSet
+	 * 
+	 * @param parentNodeToSet the node to set as the parent node
 	 */
 	
 	public void setParentNode(TreeNode parentNodeToSet) {

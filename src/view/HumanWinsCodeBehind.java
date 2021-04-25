@@ -19,6 +19,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import viewmodel.BinaryTreeViewModel;
 
+/**
+ * The code behind for the human wins screen
+ * 
+ * @author Alex DeCesare
+ * @version 20-April-2021
+ */
+
 public class HumanWinsCodeBehind {
 
     @FXML
@@ -41,6 +48,15 @@ public class HumanWinsCodeBehind {
 
     private BinaryTreeViewModel binaryTreeViewModel;
     
+    /**
+     * Sets the view model for the code behind
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     * @param viewModelToSet the view model to set
+     */
+    
     public void setViewModel(BinaryTreeViewModel viewModelToSet) {
     	this.binaryTreeViewModel = viewModelToSet;
     }
@@ -48,10 +64,10 @@ public class HumanWinsCodeBehind {
     @FXML
     void submitAnimal(ActionEvent event) {
     	try {
-    		if (!distinguishQuestionYes.isSelected() && !distinguishQuestionNo.isSelected()) {
+    		if (!this.distinguishQuestionYes.isSelected() && !this.distinguishQuestionNo.isSelected()) {
     			throw new IllegalArgumentException(ErrorMessages.CANNOT_ADD_NEW_NODE_WITHOUT_SELECTING_NODE_SIZE);
     		} else {
-        		this.binaryTreeViewModel.insertNode(questionTextField.getText(), answerTextField.getText(), NodeType.QUESTION, this.distinguishQuestionYes.isSelected());
+        		this.binaryTreeViewModel.insertNode(this.questionTextField.getText(), this.answerTextField.getText(), NodeType.QUESTION, this.distinguishQuestionYes.isSelected());
             	this.switchToStart(event);
     		}
     	} catch (IllegalArgumentException e) {
@@ -64,7 +80,7 @@ public class HumanWinsCodeBehind {
     
     private void switchToStart(ActionEvent actionEvent) {
     	try {
-            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     		
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
     		Parent root = (Parent) loader.load();

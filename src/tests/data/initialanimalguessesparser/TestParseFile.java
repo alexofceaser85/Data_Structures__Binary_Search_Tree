@@ -1,7 +1,7 @@
 package tests.data.initialanimalguessesparser;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;

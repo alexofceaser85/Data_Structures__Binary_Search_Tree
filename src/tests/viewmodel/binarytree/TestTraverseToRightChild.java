@@ -1,6 +1,9 @@
 package tests.viewmodel.binarytree;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +43,7 @@ class TestTraverseToRightChild {
 		QuestionNode question = (QuestionNode) tree.getRootNode();
 		assertEquals("Bird", question.getLeftChild().getNodeValue());
 		assertEquals("Dog", question.getRightChild().getNodeValue());
-		assertEquals("Dog",tree.getCurrentNode().getNodeValue());
+		assertEquals("Dog", tree.getCurrentNode().getNodeValue());
 		
 		tree.setCurrentNode(tree.getRootNode());
 		assertTrue(tree.traverseToRightChild());
@@ -59,7 +62,7 @@ class TestTraverseToRightChild {
 		QuestionNode question = (QuestionNode) tree.getRootNode();
 		assertEquals("Vulture", question.getLeftChild().getNodeValue());
 		assertEquals("Dog", question.getRightChild().getNodeValue());
-		assertEquals("Dog",tree.getCurrentNode().getNodeValue());
+		assertEquals("Dog", tree.getCurrentNode().getNodeValue());
 
 		tree.insertNode("Does it walk?", "Python", NodeType.QUESTION, false);
 		assertEquals("Python", tree.getCurrentNode().getNodeValue());

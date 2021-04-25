@@ -1,13 +1,12 @@
 package tests.model.binarytree;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import enums.NodeType;
 import model.BinaryTree;
 import model.QuestionNode;
-import model.TreeNode;
 
 class TestSetRootNode {
 

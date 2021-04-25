@@ -1,7 +1,7 @@
 package tests.viewmodel.binarytree;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import enums.NodeType;
@@ -60,20 +60,19 @@ class TestInsertNode {
 		
 		tree.setRootNode(new AnswerNode("dog", NodeType.ANSWER));
 		assertEquals("dog", tree.getCurrentNode().getNodeValue());
-		
+	
 		tree.insertNode("does it fly", "bird", NodeType.QUESTION, true);
 		
 		assertEquals("does it fly", tree.getRootNode().getNodeValue());
 		QuestionNode root = (QuestionNode) tree.getRootNode();
 		
-		assertEquals("bird",root.getLeftChild().getNodeValue());
+		assertEquals("bird", root.getLeftChild().getNodeValue());
 		assertEquals("dog", root.getRightChild().getNodeValue());
 		
 		AnswerNode rootYesChild = (AnswerNode) root.getLeftChild();
 		AnswerNode rootNoChild = (AnswerNode) root.getRightChild();
 		
 		tree.setCurrentNode(rootYesChild);
-		
 		tree.insertNode("does it swim", "whale", NodeType.QUESTION, true);
 		
 		assertEquals("does it fly", tree.getRootNode().getNodeValue());
@@ -82,9 +81,7 @@ class TestInsertNode {
 		assertEquals("whale", newRootYesChild.getLeftChild().getNodeValue());
 		assertEquals("bird", newRootYesChild.getRightChild().getNodeValue());
 		
-		
 		tree.setCurrentNode(rootNoChild);
-		
 		tree.insertNode("does it have legs", "snake", NodeType.QUESTION, true);
 		
 		assertEquals("does it fly", tree.getRootNode().getNodeValue());
@@ -106,14 +103,13 @@ class TestInsertNode {
 		assertEquals("does it fly", tree.getRootNode().getNodeValue());
 		QuestionNode root = (QuestionNode) tree.getRootNode();
 		
-		assertEquals("duck",root.getLeftChild().getNodeValue());
+		assertEquals("duck", root.getLeftChild().getNodeValue());
 		assertEquals("dog", root.getRightChild().getNodeValue());
 		
 		AnswerNode rootYesChild = (AnswerNode) root.getLeftChild();
 		AnswerNode rootNoChild = (AnswerNode) root.getRightChild();
 		
 		tree.setCurrentNode(rootYesChild);
-		
 		tree.insertNode("does it swim", "pigeon", NodeType.QUESTION, false);
 		
 		assertEquals("does it fly", tree.getRootNode().getNodeValue());
@@ -122,9 +118,7 @@ class TestInsertNode {
 		assertEquals("duck", newRootYesChild.getLeftChild().getNodeValue());
 		assertEquals("pigeon", newRootYesChild.getRightChild().getNodeValue());
 		
-		
 		tree.setCurrentNode(rootNoChild);
-		
 		tree.insertNode("does it have legs", "snake", NodeType.QUESTION, false);
 		
 		assertEquals("does it fly", tree.getRootNode().getNodeValue());

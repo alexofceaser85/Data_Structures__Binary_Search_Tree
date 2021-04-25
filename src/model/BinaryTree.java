@@ -3,6 +3,13 @@ package model;
 import enums.NodeType;
 import errormessages.ErrorMessages;
 
+/**
+ * Models the binary tree
+ * 
+ * @author Alex DeCesare
+ * @version 20-April-2021
+ */
+
 public class BinaryTree {
 	
 	private TreeNode rootNode;
@@ -195,6 +202,11 @@ public class BinaryTree {
 	 * 
 	 * @precondition none
 	 * @postcondition none
+	 * 
+	 * @param questionDescription the description of the question to insert
+	 * @param answerDescription the description of the answer of the question
+	 * @param nodeType the type of the question to insert
+	 * @param responseToQuestion if the answer to the question is the correct answer or not
 	 */
 	
 	public void insertNode(String questionDescription, String answerDescription, NodeType nodeType, boolean responseToQuestion) {
@@ -207,63 +219,76 @@ public class BinaryTree {
 			QuestionNode answerNodesParent = (QuestionNode) theAnswerNode.getParentNode();
 			
 			if (this.rootNode.getNodeType().equals(NodeType.ANSWER)) {
-				this.rootNode = theQuestionNode;
-				theNewAnswerNode.setParentNode(theQuestionNode);
-				theAnswerNode.setParentNode(theQuestionNode);
-				
-				if (responseToQuestion == true) {
-					theQuestionNode.setLeftChild(theNewAnswerNode);
-					theQuestionNode.setRightChild(theAnswerNode);
-					this.currentNode = theQuestionNode.getLeftChild();
-				} else {
-					theQuestionNode.setLeftChild(theAnswerNode);
-					theQuestionNode.setRightChild(theNewAnswerNode);
-					this.currentNode = theQuestionNode.getRightChild();
-				}
+				this.setRootQuestionReferenceNodes(responseToQuestion, theAnswerNode, theQuestionNode, theNewAnswerNode);
 					
 			} else {
 				if (answerNodesParent.getLeftChild().getNodeValue().equals(theAnswerNode.getNodeValue())) {
-					
-					if (responseToQuestion == true) {
-						theQuestionNode.setLeftChild(theNewAnswerNode);
-						theQuestionNode.setRightChild(theAnswerNode);
-						answerNodesParent.setLeftChild(theQuestionNode);
-						theQuestionNode.setParentNode(answerNodesParent);
-						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
-						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
-						this.currentNode = theQuestionNode.getLeftChild();
-					} else {
-						theQuestionNode.setLeftChild(theAnswerNode);
-						theQuestionNode.setRightChild(theNewAnswerNode);
-						answerNodesParent.setLeftChild(theQuestionNode);
-						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
-						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
-						theQuestionNode.setParentNode(answerNodesParent);
-						this.currentNode = theQuestionNode.getRightChild();
-					}
-					
-					answerNodesParent.setLeftChild(theQuestionNode);
+					this.setLeftQuestionReferenceNodes(responseToQuestion, theAnswerNode, theQuestionNode, theNewAnswerNode, answerNodesParent);
 				} else {
-					
-					if (responseToQuestion == true) {
-						theQuestionNode.setLeftChild(theNewAnswerNode);
-						theQuestionNode.setRightChild(theAnswerNode);
-						answerNodesParent.setRightChild(theQuestionNode);
-						theQuestionNode.setParentNode(answerNodesParent);
-						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
-						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
-						this.currentNode = theQuestionNode.getLeftChild();
-					} else {
-						theQuestionNode.setLeftChild(theAnswerNode);
-						theQuestionNode.setRightChild(theNewAnswerNode);
-						answerNodesParent.setRightChild(theQuestionNode);
-						theQuestionNode.setParentNode(answerNodesParent);
-						theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
-						theQuestionNode.getRightChild().setParentNode(theQuestionNode);
-						this.currentNode = theQuestionNode.getRightChild();
-					}
+					this.setRightQuestionReferenceNodes(responseToQuestion, theAnswerNode, theQuestionNode, theNewAnswerNode, answerNodesParent);
 				} 
 			}
+		}
+	}
+
+	private void setRightQuestionReferenceNodes(boolean responseToQuestion, AnswerNode theAnswerNode,
+			QuestionNode theQuestionNode, AnswerNode theNewAnswerNode, QuestionNode answerNodesParent) {
+		if (responseToQuestion) {
+			theQuestionNode.setLeftChild(theNewAnswerNode);
+			theQuestionNode.setRightChild(theAnswerNode);
+			answerNodesParent.setRightChild(theQuestionNode);
+			theQuestionNode.setParentNode(answerNodesParent);
+			theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+			theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+			this.currentNode = theQuestionNode.getLeftChild();
+		} else {
+			theQuestionNode.setLeftChild(theAnswerNode);
+			theQuestionNode.setRightChild(theNewAnswerNode);
+			answerNodesParent.setRightChild(theQuestionNode);
+			theQuestionNode.setParentNode(answerNodesParent);
+			theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+			theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+			this.currentNode = theQuestionNode.getRightChild();
+		}
+	}
+
+	private void setLeftQuestionReferenceNodes(boolean responseToQuestion, AnswerNode theAnswerNode,
+			QuestionNode theQuestionNode, AnswerNode theNewAnswerNode, QuestionNode answerNodesParent) {
+		if (responseToQuestion) {
+			theQuestionNode.setLeftChild(theNewAnswerNode);
+			theQuestionNode.setRightChild(theAnswerNode);
+			answerNodesParent.setLeftChild(theQuestionNode);
+			theQuestionNode.setParentNode(answerNodesParent);
+			theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+			theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+			this.currentNode = theQuestionNode.getLeftChild();
+		} else {
+			theQuestionNode.setLeftChild(theAnswerNode);
+			theQuestionNode.setRightChild(theNewAnswerNode);
+			answerNodesParent.setLeftChild(theQuestionNode);
+			theQuestionNode.getLeftChild().setParentNode(theQuestionNode);
+			theQuestionNode.getRightChild().setParentNode(theQuestionNode);
+			theQuestionNode.setParentNode(answerNodesParent);
+			this.currentNode = theQuestionNode.getRightChild();
+		}
+		
+		answerNodesParent.setLeftChild(theQuestionNode);
+	}
+
+	private void setRootQuestionReferenceNodes(boolean responseToQuestion, AnswerNode theAnswerNode,
+			QuestionNode theQuestionNode, AnswerNode theNewAnswerNode) {
+		this.rootNode = theQuestionNode;
+		theNewAnswerNode.setParentNode(theQuestionNode);
+		theAnswerNode.setParentNode(theQuestionNode);
+		
+		if (responseToQuestion) {
+			theQuestionNode.setLeftChild(theNewAnswerNode);
+			theQuestionNode.setRightChild(theAnswerNode);
+			this.currentNode = theQuestionNode.getLeftChild();
+		} else {
+			theQuestionNode.setLeftChild(theAnswerNode);
+			theQuestionNode.setRightChild(theNewAnswerNode);
+			this.currentNode = theQuestionNode.getRightChild();
 		}
 	}
 

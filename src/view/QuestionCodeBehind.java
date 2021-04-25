@@ -16,9 +16,14 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import model.AnswerNode;
-import model.QuestionNode;
 import viewmodel.BinaryTreeViewModel;
+
+/**
+ * The code behind for the question screen
+ * 
+ * @author Alex DeCesare
+ * @version 20-April-2021
+ */
 
 public class QuestionCodeBehind {
 
@@ -30,14 +35,28 @@ public class QuestionCodeBehind {
 
     @FXML
     private Label questionLabel;
-    
-    private Scene secondScene;
 
     private BinaryTreeViewModel binaryTreeViewModel;
+    
+    /**
+     * The constructor for the question code behind
+     * 
+     * @precondition none
+     * @postcondition none
+     */
     
     public QuestionCodeBehind() {
 
     }
+    
+    /**
+     * Sets the view model of the question code behind
+     * 
+     * @precondition none
+     * @postcondition this.binaryTreeViewModel == viewModelToSet
+     * 
+     * @param viewModelToSet the view model to set for the code behind
+     */
     
     public void setViewModel(BinaryTreeViewModel viewModelToSet) {
     	this.binaryTreeViewModel = viewModelToSet;
@@ -93,7 +112,7 @@ public class QuestionCodeBehind {
     		Alert computerWinsAlert = new Alert(AlertType.INFORMATION);
     		computerWinsAlert.setTitle("The computers guess is this: ");
     		computerWinsAlert.setContentText("The computer correctly guessed your animal");
-        	Optional<ButtonType> computerWinsResult = computerWinsAlert.showAndWait();
+        	computerWinsAlert.showAndWait();
     		this.switchToMain(actionEvent);
     	} else {
     		this.switchToHumanWins(actionEvent);
@@ -102,7 +121,7 @@ public class QuestionCodeBehind {
     
     private void switchToHumanWins(ActionEvent actionEvent) {
     	try {
-            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     		
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HumanWins.fxml"));
     		Parent root = (Parent) loader.load();
@@ -123,7 +142,7 @@ public class QuestionCodeBehind {
     
     private void switchToMain(ActionEvent actionEvent) {
     	try {
-            Stage primaryStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     		
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
     		Parent root = (Parent) loader.load();

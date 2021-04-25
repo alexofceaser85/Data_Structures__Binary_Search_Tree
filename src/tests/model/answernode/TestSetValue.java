@@ -1,18 +1,21 @@
 package tests.model.answernode;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import enums.NodeType;
 import model.AnswerNode;
-import model.QuestionNode;
 
 class TestSetValue {
 
+	private final String answerNodeValue = "node value";
+	private final String newNodeValue = "new node value";
+	
 	@Test
 	public void shouldNotSetNullValue() {
-		AnswerNode node = new AnswerNode("node value", NodeType.ANSWER);
+		AnswerNode node = new AnswerNode(this.answerNodeValue, NodeType.ANSWER);
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			node.setValue(null);
@@ -21,7 +24,7 @@ class TestSetValue {
 	
 	@Test
 	public void shouldNotSetEmptyValue() {
-		AnswerNode node = new AnswerNode("node value", NodeType.ANSWER);
+		AnswerNode node = new AnswerNode(this.answerNodeValue, NodeType.ANSWER);
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			node.setValue("");
@@ -30,9 +33,9 @@ class TestSetValue {
 	
 	@Test
 	public void shouldSetValidValue() {
-		AnswerNode node = new AnswerNode("node value", NodeType.ANSWER);
-		node.setValue("new node value");
-		assertEquals("new node value", node.getNodeValue());
+		AnswerNode node = new AnswerNode(this.answerNodeValue, NodeType.ANSWER);
+		node.setValue(this.newNodeValue);
+		assertEquals(this.newNodeValue, node.getNodeValue());
 	}
 
 }
