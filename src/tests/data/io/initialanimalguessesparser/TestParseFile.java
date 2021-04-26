@@ -1,4 +1,4 @@
-package tests.data.initialanimalguessesparser;
+package tests.data.io.initialanimalguessesparser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
 
-import data.fileparsers.InitialAnimalGuessesParser;
+import data.io.InitialAnimalGuessesParser;
 
 class TestParseFile {
 

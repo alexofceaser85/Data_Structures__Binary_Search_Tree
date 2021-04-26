@@ -1,4 +1,4 @@
-package data.fileparsers;
+package data.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;

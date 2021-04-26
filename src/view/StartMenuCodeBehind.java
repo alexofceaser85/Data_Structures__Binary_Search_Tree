@@ -1,12 +1,13 @@
 package view;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import data.fileparsers.InitialAnimalGuessesParser;
 import data.filepaths.FilePaths;
+import data.io.InitialAnimalGuessesParser;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.AnswerNode;
 import viewmodel.BinaryTreeViewModel;
 import viewmodel.InitialAnimalGuessViewModel;
@@ -70,6 +75,22 @@ public class StartMenuCodeBehind {
     
     public void setViewModel(BinaryTreeViewModel binaryTreeToSet) {
     	this.theBinaryTree = binaryTreeToSet;
+    }
+    
+    @FXML
+    void loadFile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void saveFile(ActionEvent event) {
+    	System.out.println("hh");
+    	FileChooser chooser = new FileChooser(); 
+    	chooser.setTitle("Save File");
+    	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+    	Window stage = this.startMenuPane.getScene().getWindow();
+    	File theFile = chooser.showSaveDialog(stage);
+
     }
     
     /**
