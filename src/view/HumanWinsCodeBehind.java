@@ -96,7 +96,6 @@ public class HumanWinsCodeBehind {
 
     @FXML
     void saveFile(ActionEvent event) {
-    	System.out.println("hh");
     	FileChooser chooser = new FileChooser(); 
     	chooser.setTitle("Save File");
     	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
@@ -120,7 +119,6 @@ public class HumanWinsCodeBehind {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
     		Parent root = (Parent) loader.load();
     		StartMenuCodeBehind controller = loader.<StartMenuCodeBehind>getController();
-    		System.out.println(this.binaryTreeViewModel.getCurrentNode().getNodeValue());
     		controller.setViewModel(this.binaryTreeViewModel);
     		
     		Scene theScene = new Scene(root);

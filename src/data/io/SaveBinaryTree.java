@@ -3,7 +3,16 @@ package data.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
+import org.graalvm.compiler.nodes.calc.BinaryNode;
+
+import enums.NodeType;
+import model.BinaryTree;
+import model.QuestionNode;
+import model.TreeNode;
 import viewmodel.BinaryTreeViewModel;
 
 /**
@@ -51,15 +60,67 @@ public class SaveBinaryTree {
 		}
 		
 		File theFile = new File(theFileToSave.getAbsolutePath());
-		System.out.println(theFile);
-		theBinaryTree.setCurrentNode(theBinaryTree.getRootNode());
-		String data = theBinaryTree.getCurrentNode().getNodeValue() + System.lineSeparator() + theBinaryTree.getCurrentNode().getNodeType();
+		String data = "";
 		
+		PreOrderIterator iterator = new PreOrderIterator(theBinaryTree);
+		while(iterator.hasNext()) {
+			TreeNode nextNode = iterator.next();
+			data += nextNode.getNodeValue() + System.lineSeparator() + nextNode.getNodeType() + System.lineSeparator();
+		}
+
 		PrintWriter savedFile = new PrintWriter(theFile);
 
 		savedFile.write(data);
 		savedFile.close();
 		
+	}
+	
+	protected class PreOrderIterator implements Iterator<TreeNode> {
+		
+        private Stack<TreeNode> preOrderStack;
+
+		/**
+		 * The constructor for the pre order iterator
+		 * 
+		 * @precondition none
+		 * @postcondition none
+		 */
+        
+        public PreOrderIterator(BinaryTreeViewModel theBinaryTreeToIterate) {
+            this.preOrderStack = new Stack<TreeNode>();
+            this.preOrderStack.add(theBinaryTreeToIterate.getRootNode());
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !this.preOrderStack.isEmpty();
+        }
+
+        @Override
+        public TreeNode next() {
+            if (!this.hasNext()) {
+            	throw new NoSuchElementException("No more nodes remain to iterate");
+            }
+
+            final TreeNode node = this.preOrderStack.pop();           
+
+            if (node.getNodeType().equals(NodeType.QUESTION)) {
+            	QuestionNode questionNode = (QuestionNode) node;
+                if (questionNode.hasRightChild()) {
+                	this.preOrderStack.push(questionNode.getRightChild());
+                }
+                if (questionNode.hasLeftChild()) {
+                	this.preOrderStack.push(questionNode.getLeftChild());
+                }
+            }
+
+            return node;
+        }
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
 	}
 	
 }

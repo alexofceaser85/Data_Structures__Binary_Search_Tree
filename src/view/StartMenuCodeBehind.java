@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import data.filepaths.FilePaths;
 import data.io.InitialAnimalGuessesParser;
+import data.io.SaveBinaryTree;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,13 +85,26 @@ public class StartMenuCodeBehind {
 
     @FXML
     void saveFile(ActionEvent event) {
-    	System.out.println("hh");
-    	FileChooser chooser = new FileChooser(); 
-    	chooser.setTitle("Save File");
-    	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-    	Window stage = this.startMenuPane.getScene().getWindow();
-    	File theFile = chooser.showSaveDialog(stage);
+    	try {
+        	FileChooser chooser = new FileChooser(); 
+        	chooser.setTitle("Save File");
+        	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+        	Window stage = this.startMenuPane.getScene().getWindow();
+        	File theFile = chooser.showSaveDialog(stage);
 
+        	SaveBinaryTree saveTree = new SaveBinaryTree();
+        	saveTree.saveFile(theFile, theBinaryTree);
+    	} catch (IllegalArgumentException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	}
     }
     
     /**
@@ -106,8 +120,6 @@ public class StartMenuCodeBehind {
     public void switchToQuestion(ActionEvent actionEvent) {
     	try {
     		if (this.theBinaryTree.getCurrentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode().getNodeType().equals(NodeType.ANSWER)) {
-
-    			
     			this.theBinaryTree.setRootNode(new AnswerNode(this.getInitialNode(), NodeType.ANSWER));
     			this.switchToWinningScreen(actionEvent);
     		} else {
