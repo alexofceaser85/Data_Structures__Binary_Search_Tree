@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import data.filepaths.FilePaths;
 import data.io.InitialAnimalGuessesParser;
+import data.io.LoadBinaryTree;
 import data.io.SaveBinaryTree;
 import enums.NodeType;
 import javafx.event.ActionEvent;
@@ -80,7 +81,27 @@ public class StartMenuCodeBehind {
     
     @FXML
     void loadFile(ActionEvent event) {
+    	try {
+        	FileChooser chooser = new FileChooser(); 
+        	chooser.setTitle("Load File");
+        	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+        	Window stage = this.startMenuPane.getScene().getWindow();
+        	File theFile = chooser.showOpenDialog(stage);
 
+        	LoadBinaryTree loadTree = new LoadBinaryTree();
+        	this.theBinaryTree = loadTree.loadBinaryTree(theFile);
+        	
+    	} catch (IllegalArgumentException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	}
     }
 
     @FXML
