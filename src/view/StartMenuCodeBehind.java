@@ -80,7 +80,7 @@ public class StartMenuCodeBehind {
     }
     
     @FXML
-    void loadFile(ActionEvent event) {
+    void loadFile(ActionEvent event) throws IOException {
     	try {
         	FileChooser chooser = new FileChooser(); 
         	chooser.setTitle("Load File");
@@ -91,6 +91,18 @@ public class StartMenuCodeBehind {
         	LoadBinaryTree loadTree = new LoadBinaryTree();
         	this.theBinaryTree = loadTree.loadBinaryTree(theFile);
         	
+            Stage primaryStage = (Stage) ((Node) this.startMenuPane).getScene().getWindow();
+    		
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Question.fxml"));
+    		Parent root = (Parent) loader.load();
+    		QuestionCodeBehind controller = loader.<QuestionCodeBehind>getController();
+    		
+    		controller.setViewModel(this.theBinaryTree);
+    		
+    		Scene theScene = new Scene(root);
+            primaryStage.setScene(theScene);
+
+            primaryStage.show();
     	} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
     		cannotFindAnimalGuessAlert.setTitle("Error loading file");

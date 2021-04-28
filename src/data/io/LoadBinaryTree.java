@@ -59,11 +59,10 @@ public class LoadBinaryTree {
 		if (nodeType.equals(NodeType.QUESTION.toString())) {
 			theBinaryTree.setRootNode(new QuestionNode(nodeValue, NodeType.QUESTION));
 		} else {
-			theBinaryTree.setRootNode(new QuestionNode(nodeValue, NodeType.ANSWER));
+			theBinaryTree.setRootNode(new AnswerNode(nodeValue, NodeType.ANSWER));
 		}
 		
 		this.loadSubtree(theBinaryTree, theBinaryTree.getRootNode(), fileScanner);
-		QuestionNode question = (QuestionNode) theBinaryTree.getRootNode();
 //		System.out.println(question.getLeftChild().getNodeValue());
 //		System.out.println(question.getRightChild().getNodeValue());
 		
@@ -71,13 +70,13 @@ public class LoadBinaryTree {
 	}
 	
 	private void loadSubtree(BinaryTreeViewModel binaryTree, TreeNode node, Scanner fileScanner) {
-		String nodeValue = "";
+		String nodeValue = null;
 		if (fileScanner.hasNextLine()) {
 			nodeValue = fileScanner.nextLine();
 		} else {
 			return;
 		}
-		String nodeType = "";
+		String nodeType = null;
 		if (fileScanner.hasNextLine()) {
 			nodeType = fileScanner.nextLine();
 		} else {
@@ -85,23 +84,35 @@ public class LoadBinaryTree {
 		}
 		System.out.println(nodeValue);
 		System.out.println(nodeType);
-		if (node.getNodeType().equals(NodeType.ANSWER)) {
-			System.out.println(node.getNodeValue());
-			AnswerNode newNode = new AnswerNode(nodeValue, NodeType.ANSWER);
-			newNode.setParentNode(node);
-		} else {
-			QuestionNode questionNode = (QuestionNode) node;
+		
+		QuestionNode questionNode = (QuestionNode) node;
 
-			AnswerNode leftChild = new AnswerNode(nodeValue, NodeType.ANSWER);
-			questionNode.setLeftChild(leftChild);
-			System.out.println(questionNode.getLeftChild().getNodeValue());
-			leftChild.setParentNode(questionNode);
-			this.loadSubtree(binaryTree, leftChild, fileScanner);
-			AnswerNode rightChild = new AnswerNode(nodeValue, NodeType.ANSWER);
-			questionNode.setRightChild(rightChild);
-			System.out.println(questionNode.getRightChild().getNodeValue());
-			leftChild.setParentNode(questionNode);
-			this.loadSubtree(binaryTree, questionNode, fileScanner);
+		if (nodeType.equals(NodeType.ANSWER.toString())) {
+			if (!questionNode.hasLeftChild()) {
+				AnswerNode leftChild = new AnswerNode(nodeValue, NodeType.ANSWER);
+				questionNode.setLeftChild(leftChild);
+				leftChild.setParentNode(questionNode);
+				this.loadSubtree(binaryTree, questionNode, fileScanner);
+			} else if (!questionNode.hasRightChild()) {
+				AnswerNode rightChild = new AnswerNode(nodeValue, NodeType.ANSWER);
+				questionNode.setRightChild(rightChild);
+				rightChild.setParentNode(questionNode);
+				this.loadSubtree(binaryTree, questionNode, fileScanner);	
+			} else {
+				return;
+			}
+		} else {
+			if (!questionNode.hasLeftChild()) {
+				QuestionNode leftChild = new QuestionNode(nodeValue, NodeType.QUESTION);
+				questionNode.setLeftChild(leftChild);
+				leftChild.setParentNode(questionNode);
+				this.loadSubtree(binaryTree, leftChild, fileScanner);
+			} else if (!questionNode.hasRightChild()) {
+				QuestionNode rightChild = new QuestionNode(nodeValue, NodeType.QUESTION);
+				questionNode.setRightChild(rightChild);
+				rightChild.setParentNode(questionNode);
+				this.loadSubtree(binaryTree, rightChild, fileScanner);
+			}
 		}
 	}
 	
