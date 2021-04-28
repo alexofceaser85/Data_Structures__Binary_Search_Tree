@@ -53,16 +53,56 @@ public class LoadBinaryTree {
 		File theFile = new File(theFileToLoad.getAbsolutePath());
 		Scanner fileScanner = new Scanner(theFile);
 		
-		while (fileScanner.hasNext()) {
-			this.fileData.add(fileScanner.next());
+		String nodeValue = fileScanner.nextLine();
+		String nodeType = fileScanner.nextLine();
+		
+		if (nodeType.equals(NodeType.QUESTION.toString())) {
+			theBinaryTree.setRootNode(new QuestionNode(nodeValue, NodeType.QUESTION));
+		} else {
+			theBinaryTree.setRootNode(new QuestionNode(nodeValue, NodeType.ANSWER));
 		}
 		
-		boolean onAnswer = false;
-		while(!onAnswer) {
-			
-		}
+		this.loadSubtree(theBinaryTree, theBinaryTree.getRootNode(), fileScanner);
+		QuestionNode question = (QuestionNode) theBinaryTree.getRootNode();
+//		System.out.println(question.getLeftChild().getNodeValue());
+//		System.out.println(question.getRightChild().getNodeValue());
 		
 		return theBinaryTree;
+	}
+	
+	private void loadSubtree(BinaryTreeViewModel binaryTree, TreeNode node, Scanner fileScanner) {
+		String nodeValue = "";
+		if (fileScanner.hasNextLine()) {
+			nodeValue = fileScanner.nextLine();
+		} else {
+			return;
+		}
+		String nodeType = "";
+		if (fileScanner.hasNextLine()) {
+			nodeType = fileScanner.nextLine();
+		} else {
+			return;
+		}
+		System.out.println(nodeValue);
+		System.out.println(nodeType);
+		if (node.getNodeType().equals(NodeType.ANSWER)) {
+			System.out.println(node.getNodeValue());
+			AnswerNode newNode = new AnswerNode(nodeValue, NodeType.ANSWER);
+			newNode.setParentNode(node);
+		} else {
+			QuestionNode questionNode = (QuestionNode) node;
+
+			AnswerNode leftChild = new AnswerNode(nodeValue, NodeType.ANSWER);
+			questionNode.setLeftChild(leftChild);
+			System.out.println(questionNode.getLeftChild().getNodeValue());
+			leftChild.setParentNode(questionNode);
+			this.loadSubtree(binaryTree, leftChild, fileScanner);
+			AnswerNode rightChild = new AnswerNode(nodeValue, NodeType.ANSWER);
+			questionNode.setRightChild(rightChild);
+			System.out.println(questionNode.getRightChild().getNodeValue());
+			leftChild.setParentNode(questionNode);
+			this.loadSubtree(binaryTree, questionNode, fileScanner);
+		}
 	}
 	
 	protected class PreOrderIterator implements Iterator<TreeNode> {
