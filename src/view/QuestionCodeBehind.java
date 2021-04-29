@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.QuestionNode;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -86,6 +87,8 @@ public class QuestionCodeBehind {
     @FXML
     void traverseRight(ActionEvent event) {
     	try {
+    		QuestionNode node = (QuestionNode) binaryTreeViewModel.getRootNode();
+    		System.out.println("The right child: " + node.getRightChild().getNodeValue());
         	if (this.binaryTreeViewModel.traverseToRightChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
         		this.updateGUI();
         	} else {
