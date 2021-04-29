@@ -4,6 +4,8 @@ import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import enums.FileNodeType;
 import enums.NodeType;
 import errormessages.ErrorMessages;
 import model.AnswerNode;
@@ -56,9 +58,9 @@ public class LoadBinaryTree {
 		String nodeValue = fileScanner.nextLine();
 		String nodeType = fileScanner.nextLine();
 		
-		if (nodeType.equals(NodeType.QUESTION.toString())) {
+		if (nodeType.equals(FileNodeType.Q.toString())) {
 			theBinaryTree.setRootNode(new QuestionNode(nodeValue, NodeType.QUESTION));
-		} else if (nodeType.equals(NodeType.ANSWER.toString())) {
+		} else if (nodeType.equals(FileNodeType.A.toString())) {
 			theBinaryTree.setRootNode(new AnswerNode(nodeValue, NodeType.ANSWER));
 		} else {
 			fileScanner.close();
@@ -89,9 +91,9 @@ public class LoadBinaryTree {
 		
 		QuestionNode questionNode = (QuestionNode) node;
 
-		if (nodeType.equals(NodeType.ANSWER.toString())) {
+		if (nodeType.equals(FileNodeType.A.toString())) {
 			this.addAnswerNode(binaryTree, fileScanner, nodeValue, nodeType, questionNode);
-		} else if (nodeType.equals(NodeType.QUESTION.toString())) {
+		} else if (nodeType.equals(FileNodeType.Q.toString())) {
 			this.addQuestionNode(binaryTree, fileScanner, nodeValue, nodeType, questionNode);
 		} else {
 			fileScanner.close();

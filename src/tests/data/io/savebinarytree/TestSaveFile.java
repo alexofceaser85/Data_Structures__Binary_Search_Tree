@@ -22,8 +22,8 @@ class TestSaveFile {
 	private final String filePathForQuestionRootNodeAndChildrenSaveTests = FilePaths.TEST_FILE_FOR_SAVE_FILE_UNIT_TESTS + "\\shouldSaveFileWithQuestionRootNodeAndChildren";
 	private final String filePathForEmptyQuestionRootNode = FilePaths.TEST_FILE_FOR_SAVE_FILE_UNIT_TESTS + "\\shouldSaveEmptyQuestionNode";
 	
-	private final String answerDescription = "ANSWER";
-	private final String questionDescription = "QUESTION";
+	private final String answerDescription = "A";
+	private final String questionDescription = "Q";
 	
 	public String fileReader(File file) {
 		try {

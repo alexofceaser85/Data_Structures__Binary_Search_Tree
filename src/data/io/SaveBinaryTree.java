@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Stack;
 
+import enums.FileNodeType;
 import enums.NodeType;
 import model.QuestionNode;
 import model.TreeNode;
@@ -61,7 +62,11 @@ public class SaveBinaryTree {
 		PreOrderIterator iterator = new PreOrderIterator(theBinaryTree);
 		while (iterator.hasNext()) {
 			TreeNode nextNode = iterator.next();
-			data += nextNode.getNodeValue() + System.lineSeparator() + nextNode.getNodeType() + System.lineSeparator();
+			if (nextNode.getNodeType().equals(NodeType.QUESTION)) {
+				data += nextNode.getNodeValue() + System.lineSeparator() + FileNodeType.Q + System.lineSeparator();
+			} else {
+				data += nextNode.getNodeValue() + System.lineSeparator() + FileNodeType.A + System.lineSeparator();
+			}
 		}
 
 		PrintWriter savedFile = new PrintWriter(theFile);
