@@ -58,7 +58,7 @@ public class LoadBinaryTree {
 		
 		if (nodeType.equals(NodeType.QUESTION.toString())) {
 			theBinaryTree.setRootNode(new QuestionNode(nodeValue, NodeType.QUESTION));
-		} else if (nodeType.equals(NodeType.QUESTION.toString())) {
+		} else if (nodeType.equals(NodeType.ANSWER.toString())) {
 			theBinaryTree.setRootNode(new AnswerNode(nodeValue, NodeType.ANSWER));
 		} else {
 			fileScanner.close();

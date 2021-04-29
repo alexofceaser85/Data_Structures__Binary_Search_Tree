@@ -34,6 +34,7 @@ class TestSaveFile {
 				fileData += scanner.nextLine() + System.lineSeparator();
 			}
 			
+			scanner.close();
 			return fileData;
 		} catch (FileNotFoundException e) {
 			return null;
@@ -102,33 +103,33 @@ class TestSaveFile {
 	
 	@Test
 	public void shouldSaveFileWithQuestionRootNodeAndTwoQuestions() throws FileNotFoundException {
+		String rootQuestion = "does it walk?";
+		String rightQuestion = "is it black?";
+		String leftQuestion = "does it eat meat?";
 		File newFile = new File(this.filePathForQuestionRootNodeAndChildrenSaveTests);
 		BinaryTreeViewModel theTree = new BinaryTreeViewModel();
-		QuestionNode root = new QuestionNode("does it walk?", NodeType.QUESTION);
-		QuestionNode rightChild = new QuestionNode("is it black?", NodeType.QUESTION);
-		QuestionNode leftChild = new QuestionNode("does it eat meat?", NodeType.QUESTION);
+		QuestionNode root = new QuestionNode(rootQuestion, NodeType.QUESTION);
+		QuestionNode rightChild = new QuestionNode(rightQuestion, NodeType.QUESTION);
+		QuestionNode leftChild = new QuestionNode(leftQuestion, NodeType.QUESTION);
 		
 		rightChild.setRightChild(new AnswerNode("Robin", NodeType.ANSWER));
 		rightChild.setLeftChild(new AnswerNode("Vulture", NodeType.ANSWER));
-		
 		leftChild.setRightChild(new AnswerNode("Turtle", NodeType.ANSWER));
 		leftChild.setLeftChild(new AnswerNode("Dog", NodeType.ANSWER));
-		
 		root.setRightChild(rightChild);
 		root.setLeftChild(leftChild);
 		theTree.setRootNode(root);
-		
 		SaveBinaryTree saveBinaryTree = new SaveBinaryTree();
 		saveBinaryTree.saveFile(newFile, theTree);
-		String testData = "does it walk?" + System.lineSeparator() 
+		String testData = rootQuestion + System.lineSeparator() 
 			+ this.questionDescription + System.lineSeparator() 
-			+ "does it eat meat?"  + System.lineSeparator()
+			+ leftQuestion  + System.lineSeparator()
 			+ this.questionDescription + System.lineSeparator()
 			+ "Dog" + System.lineSeparator()
 			+ this.answerDescription + System.lineSeparator()
 			+ "Turtle" + System.lineSeparator()
 			+ this.answerDescription + System.lineSeparator()
-			+ "is it black?" + System.lineSeparator()
+			+ rightQuestion + System.lineSeparator()
 			+ this.questionDescription + System.lineSeparator()
 			+ "Vulture" + System.lineSeparator()
 			+ this.answerDescription + System.lineSeparator()
@@ -139,7 +140,7 @@ class TestSaveFile {
 	
 	@Test
 	public void shouldSaveQuestionNodeWithoutChildren() throws FileNotFoundException {
-		File newFile = new File(this.filePathForRootNodeSaveTests);
+		File newFile = new File(this.filePathForEmptyQuestionRootNode);
 		BinaryTreeViewModel theTree = new BinaryTreeViewModel();
 		theTree.setRootNode(new QuestionNode("question", NodeType.QUESTION));
 		SaveBinaryTree saveBinaryTree = new SaveBinaryTree();
