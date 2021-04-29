@@ -23,7 +23,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -126,7 +125,7 @@ public class StartMenuCodeBehind {
         	File theFile = chooser.showSaveDialog(stage);
 
         	SaveBinaryTree saveTree = new SaveBinaryTree();
-        	saveTree.saveFile(theFile, theBinaryTree);
+        	saveTree.saveFile(theFile, this.theBinaryTree);
     	} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
     		cannotFindAnimalGuessAlert.setTitle("Error saving file");

@@ -38,4 +38,7 @@ public class ErrorMessages {
 	public static final String CANNOT_PICK_RANDOM_WITH_MINIMUM_INDEX_BELOW_ZERO = "Cannot pick random with minimum index below zero";
 	public static final String CANNOT_PICK_RANDOM_WITH_MAXIMUM_INDEX_ABOVE_OR_EQUAL_TO_ARRAY_SIZE = "Cannot pick random with maximum index equal to or above array size";
 	public static final String CANNOT_PICK_RANDOM_WITH_MINIMUM_INDEX_ABOVE_OR_EQUAL_TO_MAXIMUM = "Cannot pick random with minimum index above or equal to maximum index";
+	
+	public static final String FILE_TO_LOAD_CANNOT_BE_NULL = "The file to load cannot be null";
+	public static final String COULD_NOT_READ_FILE = "Could not read the file, please edit the file or try another one";
 }

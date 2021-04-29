@@ -106,7 +106,7 @@ public class HumanWinsCodeBehind {
         
         root.setSpacing(20);  
       
-        Scene scene = new Scene(root,350,100);  
+        Scene scene = new Scene(root, 350, 100);  
         mainStage.setScene(scene);  
         mainStage.setTitle("FileChooser Example");  
         mainStage.show(); 

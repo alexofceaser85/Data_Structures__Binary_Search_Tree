@@ -1,7 +1,5 @@
 package tests.data.io.savebinarytree;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -11,7 +9,6 @@ import data.filepaths.FilePaths;
 import data.io.SaveBinaryTree;
 import enums.NodeType;
 import model.AnswerNode;
-import model.BinaryTree;
 import viewmodel.BinaryTreeViewModel;
 
 class TestSaveFile {

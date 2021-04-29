@@ -7,10 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-import org.graalvm.compiler.nodes.calc.BinaryNode;
-
 import enums.NodeType;
-import model.BinaryTree;
 import model.QuestionNode;
 import model.TreeNode;
 import viewmodel.BinaryTreeViewModel;
@@ -63,7 +60,7 @@ public class SaveBinaryTree {
 		String data = "";
 		
 		PreOrderIterator iterator = new PreOrderIterator(theBinaryTree);
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			TreeNode nextNode = iterator.next();
 			data += nextNode.getNodeValue() + System.lineSeparator() + nextNode.getNodeType() + System.lineSeparator();
 		}

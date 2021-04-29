@@ -87,7 +87,7 @@ public class QuestionCodeBehind {
     @FXML
     void traverseRight(ActionEvent event) {
     	try {
-    		QuestionNode node = (QuestionNode) binaryTreeViewModel.getRootNode();
+    		QuestionNode node = (QuestionNode) this.binaryTreeViewModel.getRootNode();
     		System.out.println("The right child: " + node.getRightChild().getNodeValue());
         	if (this.binaryTreeViewModel.traverseToRightChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
         		this.updateGUI();
