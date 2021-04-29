@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import enums.NodeType;
@@ -95,10 +94,6 @@ public class SaveBinaryTree {
 
         @Override
         public TreeNode next() {
-            if (!this.hasNext()) {
-            	throw new NoSuchElementException("No more nodes remain to iterate");
-            }
-
             final TreeNode node = this.preOrderStack.pop();           
 
             if (node.getNodeType().equals(NodeType.QUESTION)) {
@@ -113,11 +108,6 @@ public class SaveBinaryTree {
 
             return node;
         }
-
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
 	}
 	
 }

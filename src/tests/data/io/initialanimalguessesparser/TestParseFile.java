@@ -21,7 +21,7 @@ class TestParseFile {
 	@Test
 	public void shouldParseFoundFile() throws FileNotFoundException {
 		InitialAnimalGuessesParser parser = new InitialAnimalGuessesParser();
-		parser.parseFile("src\\tests\\data\\initialanimalguessesparser\\MockTestFile");
+		parser.parseFile("src\\tests\\data\\io\\initialanimalguessesparser\\MockTestFile");
 		assertEquals("[Lion, Dog, Robin, Snake]", parser.getGuesses().toString());
 	}
 
