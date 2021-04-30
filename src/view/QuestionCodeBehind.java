@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
-import data.io.LoadBinaryTree;
-import data.io.SaveBinaryTree;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import viewmodel.BinaryTreeViewModel;
+import viewmodel.LoadBinaryTreeViewModel;
+import viewmodel.SaveBinaryTreeViewModel;
 
 /**
  * The code behind for the question screen
@@ -73,7 +73,7 @@ public class QuestionCodeBehind {
     		WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
     		File theFile = windowManager.showLoadFile(this.mainPane);
 
-        	LoadBinaryTree loadTree = new LoadBinaryTree();
+    		LoadBinaryTreeViewModel loadTree = new LoadBinaryTreeViewModel();
         	this.binaryTreeViewModel = loadTree.loadBinaryTree(theFile);
         	
         	windowManager = new WindowManager(this.binaryTreeViewModel);
@@ -97,7 +97,7 @@ public class QuestionCodeBehind {
         	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
         	File theFile = windowManager.showSaveFile(this.mainPane);
         	
-        	SaveBinaryTree saveTree = new SaveBinaryTree();
+        	SaveBinaryTreeViewModel saveTree = new SaveBinaryTreeViewModel();
 			saveTree.saveFile(theFile, this.binaryTreeViewModel);
 		} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);

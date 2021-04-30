@@ -66,19 +66,6 @@ public class BinaryTreeViewModel {
 	}
 	
 	/**
-	 * Gets the user question
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the user question
-	 */
-	
-	public String getUserQuestion() {
-		return this.theBinaryTree.getUserQuestion();
-	}
-	
-	/**
 	 * Traverses to the parent of the current node
 	 * 
 	 * @precondition none
@@ -116,20 +103,6 @@ public class BinaryTreeViewModel {
 	public boolean traverseToRightChild() {
 		return this.theBinaryTree.traverseToRightChild();
 	}
-	
-	/**
-	 * Sets the user question
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @param userQuestionToSet the user question to set
-	 */
-	
-	public void setUserQuestion(String userQuestionToSet) {
-		this.theBinaryTree.setUserQuestion(userQuestionToSet);
-	}
-	
 	
 	/**
 	 * Sets the root node for the binary tree

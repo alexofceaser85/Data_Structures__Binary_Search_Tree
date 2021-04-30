@@ -13,7 +13,6 @@ import errormessages.ErrorMessages;
 public class BinaryTree {
 	
 	private TreeNode rootNode;
-	private String userQuestion;
 	private TreeNode currentNode;
 	
 	/**
@@ -28,7 +27,6 @@ public class BinaryTree {
 	public BinaryTree() {
 		this.rootNode = null;
 		this.currentNode = this.rootNode;
-		this.userQuestion = "";
 	}
 	
 	/**
@@ -55,19 +53,6 @@ public class BinaryTree {
 	
 	public TreeNode getCurrentNode() {
 		return this.currentNode;
-	}
-	
-	/**
-	 * Gets the user question
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the user question
-	 */
-	
-	public String getUserQuestion() {
-		return this.userQuestion;
 	}
 	
 	/**
@@ -140,29 +125,6 @@ public class BinaryTree {
 		QuestionNode question = (QuestionNode) this.currentNode;
 		this.currentNode = question.getRightChild();
 		return true;
-	}
-	
-	/**
-	 * Sets the user question
-	 * 
-	 * @precondition userQuestionToSet != null
-	 * 				 && !userQuestionToSet.isBlank()
-	 * 
-	 * @postcondition this.userQuestion == userQuestionToSet
-	 * 
-	 * @param userQuestionToSet the user question to set
-	 */
-	
-	public void setUserQuestion(String userQuestionToSet) {
-		
-		if (userQuestionToSet == null) {
-			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_NULL_USER_QUESTION);
-		}
-		if (userQuestionToSet.isBlank()) {
-			throw new IllegalArgumentException(ErrorMessages.CANNOT_SET_EMPTY_USER_QUESTION);
-		}
-		
-		this.userQuestion = userQuestionToSet;
 	}
 	
 	/**

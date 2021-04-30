@@ -109,8 +109,8 @@ public class LoadBinaryTree {
 		}
 	}
 
-	private void addAnswerNode(BinaryTreeViewModel binaryTree, Scanner fileScanner, String nodeValue, String nodeType,
-			QuestionNode questionNode) {
+	private void addAnswerNode(BinaryTreeViewModel binaryTree, Scanner fileScanner, String nodeValue, String nodeType, QuestionNode questionNode) {
+
 		if (!questionNode.hasLeftChild()) {
 			AnswerNode leftChild = new AnswerNode(nodeValue, NodeType.ANSWER);
 			questionNode.setLeftChild(leftChild);
@@ -127,31 +127,37 @@ public class LoadBinaryTree {
 			String newNodeValue = this.getNextFileLine(fileScanner);
 			String newNodeType = this.getNextFileLine(fileScanner);
 			
-			this.loadSubtree(binaryTree, questionNode.getParentNode(), fileScanner, newNodeValue, newNodeType, false);
+			if (questionNode.getParentNode() != null) {
+				this.loadSubtree(binaryTree, questionNode.getParentNode(), fileScanner, newNodeValue, newNodeType, false);
+			}
 		}
 	}
 	
-	private void addQuestionNode(BinaryTreeViewModel binaryTree, Scanner fileScanner, String nodeValue, String nodeType,
-			QuestionNode questionNode) {
+	private void addQuestionNode(BinaryTreeViewModel binaryTree, Scanner fileScanner, String nodeValue, String nodeType, QuestionNode questionNode) {
+
 		if (!questionNode.hasLeftChild()) {
+			System.out.println("question: " + nodeValue);
 			QuestionNode leftChild = new QuestionNode(nodeValue, NodeType.QUESTION);
 			questionNode.setLeftChild(leftChild);
 			leftChild.setParentNode(questionNode);
 			this.loadSubtree(binaryTree, leftChild, fileScanner, nodeValue, nodeType, true);
 		} 
 		if (!questionNode.hasRightChild()) {
+			System.out.println("question: " + nodeValue);
 			QuestionNode rightChild = new QuestionNode(nodeValue, NodeType.QUESTION);
 			questionNode.setRightChild(rightChild);
 			rightChild.setParentNode(questionNode);
 			this.loadSubtree(binaryTree, rightChild, fileScanner, nodeValue, nodeType, true);
 		} 
 
-		if (questionNode.hasLeftChild() && questionNode.hasRightChild()) {
+		if (questionNode.hasLeftChild() && questionNode.hasRightChild() && questionNode.getParentNode() != null) {
 			
 			String newNodeValue = this.getNextFileLine(fileScanner);
 			String newNodeType = this.getNextFileLine(fileScanner);
 			
-			this.loadSubtree(binaryTree, questionNode.getParentNode(), fileScanner, newNodeValue, newNodeType, false);
+			if (questionNode.getParentNode() != null) {
+				this.loadSubtree(binaryTree, questionNode.getParentNode(), fileScanner, newNodeValue, newNodeType, false);
+			} 
 		}
 	}
 }

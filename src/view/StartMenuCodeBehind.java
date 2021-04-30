@@ -3,13 +3,9 @@ package view;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import data.filepaths.FilePaths;
-import data.io.InitialAnimalGuessesParser;
-import data.io.LoadBinaryTree;
-import data.io.SaveBinaryTree;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +20,8 @@ import javafx.stage.Stage;
 import model.AnswerNode;
 import viewmodel.BinaryTreeViewModel;
 import viewmodel.InitialAnimalGuessViewModel;
+import viewmodel.LoadBinaryTreeViewModel;
+import viewmodel.SaveBinaryTreeViewModel;
 
 /**
  * The code behind for the start menu screen
@@ -78,7 +76,7 @@ public class StartMenuCodeBehind {
     		WindowManager windowManager = new WindowManager(this.theBinaryTree);
     		File theFile = windowManager.showLoadFile(this.startMenuPane);
 
-        	LoadBinaryTree loadTree = new LoadBinaryTree();
+        	LoadBinaryTreeViewModel loadTree = new LoadBinaryTreeViewModel();
         	this.theBinaryTree = loadTree.loadBinaryTree(theFile);
         	
         	windowManager = new WindowManager(this.theBinaryTree);
@@ -102,7 +100,7 @@ public class StartMenuCodeBehind {
     		WindowManager windowManager = new WindowManager(this.theBinaryTree);
         	File theFile = windowManager.showSaveFile(this.startMenuPane);
 
-        	SaveBinaryTree saveTree = new SaveBinaryTree();
+        	SaveBinaryTreeViewModel saveTree = new SaveBinaryTreeViewModel();
         	saveTree.saveFile(theFile, this.theBinaryTree);
     	} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
@@ -140,13 +138,10 @@ public class StartMenuCodeBehind {
     }
     
     private String getInitialNode() {
-    	try {
-    		InitialAnimalGuessesParser theParser = new InitialAnimalGuessesParser();
-			theParser.parseFile(FilePaths.RANDOM_GUESS_FILE);
-			ArrayList<String> theAnimalDictionary = theParser.getGuesses();
-			
-			InitialAnimalGuessViewModel theInitalGuesses = new InitialAnimalGuessViewModel(theAnimalDictionary);
-			return theInitalGuesses.pickRandom(0, theAnimalDictionary.size());
+    	try {			
+			InitialAnimalGuessViewModel theInitalGuesses = new InitialAnimalGuessViewModel();
+			theInitalGuesses.populateAnimalGuesses(FilePaths.RANDOM_GUESS_FILE);
+			return theInitalGuesses.pickRandom(0, theInitalGuesses.getAnimalGuesses().size());
 		} catch (FileNotFoundException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
     		cannotFindAnimalGuessAlert.setTitle("Error loading file");

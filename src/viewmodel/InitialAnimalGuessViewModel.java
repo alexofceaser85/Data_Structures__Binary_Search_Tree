@@ -1,8 +1,9 @@
 package viewmodel;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
-
+import data.io.InitialAnimalGuessesParser;
 import errormessages.ErrorMessages;
 
 /**
@@ -19,19 +20,12 @@ public class InitialAnimalGuessViewModel {
 	/**
 	 * The constructor for the initial animal guesses
 	 * 
-	 * @precondition animalGuesses != null
-	 * @postcondition this.animalGuesses == animalGuesses
-	 * 
-	 * @param animalGuesses the animal guess data
+	 * @precondition none
+	 * @postcondition this.animalGuesses == new ArrayList<String>
 	 */
 	
-	public InitialAnimalGuessViewModel(ArrayList<String> animalGuesses) {
-		
-		if (animalGuesses == null) {
-			throw new IllegalArgumentException(ErrorMessages.CANNOT_ADD_NEW_INITIAL_ANIMAL_GUESS_WITH_NULL_GUESSES);
-		}
-		
-		this.animalGuesses = animalGuesses;
+	public InitialAnimalGuessViewModel() {
+		this.animalGuesses = new ArrayList<String>();
 	}
 	
 	/**
@@ -45,6 +39,23 @@ public class InitialAnimalGuessViewModel {
 	
 	public ArrayList<String> getAnimalGuesses() {
 		return this.animalGuesses;
+	}
+	
+	/**
+	 * Populates the animal guesses from the file
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param filePath the path of the file containing the animal guesses
+	 * 
+	 * @throws FileNotFoundException if the file is not found
+	 */
+	
+	public void populateAnimalGuesses(String filePath) throws FileNotFoundException {
+		InitialAnimalGuessesParser theParser = new InitialAnimalGuessesParser();
+		theParser.parseFile(filePath);
+		this.animalGuesses = theParser.getGuesses();
 	}
 	
 	/**

@@ -3,8 +3,6 @@ package view;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import data.io.LoadBinaryTree;
-import data.io.SaveBinaryTree;
 import enums.NodeType;
 import errormessages.ErrorMessages;
 import javafx.event.ActionEvent;
@@ -20,6 +18,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import viewmodel.BinaryTreeViewModel;
+import viewmodel.LoadBinaryTreeViewModel;
+import viewmodel.SaveBinaryTreeViewModel;
 
 /**
  * The code behind for the human wins screen
@@ -95,7 +95,7 @@ public class HumanWinsCodeBehind {
     		WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
     		File theFile = windowManager.showLoadFile(this.mainPane);
 
-        	LoadBinaryTree loadTree = new LoadBinaryTree();
+    		LoadBinaryTreeViewModel loadTree = new LoadBinaryTreeViewModel();
         	this.binaryTreeViewModel = loadTree.loadBinaryTree(theFile);
         	
         	windowManager = new WindowManager(this.binaryTreeViewModel);
@@ -119,7 +119,7 @@ public class HumanWinsCodeBehind {
         	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
         	File theFile = windowManager.showSaveFile(this.mainPane);
         	
-        	SaveBinaryTree saveTree = new SaveBinaryTree();
+        	SaveBinaryTreeViewModel saveTree = new SaveBinaryTreeViewModel();
 			saveTree.saveFile(theFile, this.binaryTreeViewModel);
 		} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);

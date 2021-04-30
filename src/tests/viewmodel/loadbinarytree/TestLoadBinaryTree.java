@@ -1,4 +1,4 @@
-package tests.data.io.loadbinarytree;
+package tests.viewmodel.loadbinarytree;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,22 +9,22 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import data.filepaths.FilePaths;
-import data.io.LoadBinaryTree;
 import enums.NodeType;
 import model.QuestionNode;
 import viewmodel.BinaryTreeViewModel;
+import viewmodel.LoadBinaryTreeViewModel;
 
 class TestLoadBinaryTree {
 
-	private final String filePathForQuestionRootNodeLoadTests = FilePaths.TEST_FILE_FOR_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadSingleQuestion";
-	private final String filePathForAnswerRootNodeLoadTests = FilePaths.TEST_FILE_FOR_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadSingleAnswer";
-	private final String filePathForIncompatableRootNode = FilePaths.TEST_FILE_FOR_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadIncompatibleRootNode";
-	private final String filePathForFullBinaryTree = FilePaths.TEST_FILE_FOR_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadFullBinaryTree";
-	private final String filePathForIncompatableChildNode = FilePaths.TEST_FILE_FOR_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadIncompatibleChildNode";
-
+	private final String filePathForQuestionRootNodeLoadTests = FilePaths.TEST_FILE_FOR_VIEW_MODEL_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadSingleQuestion";
+	private final String filePathForAnswerRootNodeLoadTests = FilePaths.TEST_FILE_FOR_VIEW_MODEL_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadSingleAnswer";
+	private final String filePathForIncompatableRootNode = FilePaths.TEST_FILE_FOR_VIEW_MODEL_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadIncompatibleRootNode";
+	private final String filePathForFullBinaryTree = FilePaths.TEST_FILE_FOR_VIEW_MODEL_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadFullBinaryTree";
+	private final String filePathForIncompatableChildNode = FilePaths.TEST_FILE_FOR_VIEW_MODEL_LOAD_FILE_UNIT_TESTS + "\\MockTestLoadIncompatibleChildNode";
+	
 	@Test
 	public void shouldNotLoadBinaryTreeWithNullFile() {
-		LoadBinaryTree treeLoader = new LoadBinaryTree();
+		LoadBinaryTreeViewModel treeLoader = new LoadBinaryTreeViewModel();
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			treeLoader.loadBinaryTree(null);
@@ -33,7 +33,7 @@ class TestLoadBinaryTree {
 	
 	@Test
 	public void shouldNotLoadIncompatibleRootNode() throws FileNotFoundException {
-		LoadBinaryTree treeLoader = new LoadBinaryTree();
+		LoadBinaryTreeViewModel treeLoader = new LoadBinaryTreeViewModel();
 		File theFileToLoad = new File(this.filePathForIncompatableRootNode);
 		
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -43,7 +43,7 @@ class TestLoadBinaryTree {
 	
 	@Test
 	public void shouldNotLoadBinaryTreeWithIncompatibleChildNode() throws FileNotFoundException {
-		LoadBinaryTree treeLoader = new LoadBinaryTree();
+		LoadBinaryTreeViewModel treeLoader = new LoadBinaryTreeViewModel();
 		File theFileToLoad = new File(this.filePathForIncompatableChildNode);
 		
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -53,7 +53,7 @@ class TestLoadBinaryTree {
 
 	@Test
 	public void shouldLoadSingleQuestion() throws FileNotFoundException {
-		LoadBinaryTree treeLoader = new LoadBinaryTree();
+		LoadBinaryTreeViewModel treeLoader = new LoadBinaryTreeViewModel();
 		File theFileToLoad = new File(this.filePathForQuestionRootNodeLoadTests);
 		BinaryTreeViewModel tree = treeLoader.loadBinaryTree(theFileToLoad);
 		
@@ -63,7 +63,7 @@ class TestLoadBinaryTree {
 	
 	@Test
 	public void shouldLoadSingleAnswer() throws FileNotFoundException {
-		LoadBinaryTree treeLoader = new LoadBinaryTree();
+		LoadBinaryTreeViewModel treeLoader = new LoadBinaryTreeViewModel();
 		File theFileToLoad = new File(this.filePathForAnswerRootNodeLoadTests);
 		BinaryTreeViewModel tree = treeLoader.loadBinaryTree(theFileToLoad);
 		
@@ -73,7 +73,7 @@ class TestLoadBinaryTree {
 	
 	@Test
 	public void shouldLoadFullBinaryTree() throws FileNotFoundException {
-		LoadBinaryTree treeLoader = new LoadBinaryTree();
+		LoadBinaryTreeViewModel treeLoader = new LoadBinaryTreeViewModel();
 		File theFileToLoad = new File(this.filePathForFullBinaryTree);
 		BinaryTreeViewModel tree = treeLoader.loadBinaryTree(theFileToLoad);
 		

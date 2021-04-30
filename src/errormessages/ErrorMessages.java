@@ -41,4 +41,6 @@ public class ErrorMessages {
 	
 	public static final String FILE_TO_LOAD_CANNOT_BE_NULL = "The file to load cannot be null";
 	public static final String COULD_NOT_READ_FILE = "Could not read the file, please edit the file or try another one";
+	
+	public static final String COULD_ONLY_LOAD_PARTIAL_TREE = "Could not load full tree, question node is null";
 }
