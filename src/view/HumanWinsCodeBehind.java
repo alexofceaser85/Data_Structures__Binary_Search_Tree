@@ -58,6 +58,9 @@ public class HumanWinsCodeBehind {
     private AnchorPane mainPane;
     
     private BinaryTreeViewModel binaryTreeViewModel;
+    private final String errorSavingFile = "There was an error saving your file";
+    private final String errorLoadingFile = "There was an error loading your file";
+    private final String errorAddingAnimal = "There was an error adding your animal";
     
     /**
      * Sets the view model for the code behind
@@ -84,7 +87,7 @@ public class HumanWinsCodeBehind {
     	} catch (IllegalArgumentException e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText(e.getMessage());
-    		alert.setTitle("There was an error adding your animal");
+    		alert.setTitle(this.errorAddingAnimal);
     		alert.showAndWait();
     	}
     }
@@ -102,12 +105,12 @@ public class HumanWinsCodeBehind {
         	windowManager.switchToQuestion(event, (Stage) ((Node) this.mainPane).getScene().getWindow());
     	} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorLoadingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	} catch (FileNotFoundException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorLoadingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	}
@@ -115,6 +118,7 @@ public class HumanWinsCodeBehind {
 
     @FXML
     void saveFile(ActionEvent event) {
+    	
     	try {
         	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
         	File theFile = windowManager.showSaveFile(this.mainPane);
@@ -123,12 +127,12 @@ public class HumanWinsCodeBehind {
 			saveTree.saveFile(theFile, this.binaryTreeViewModel);
 		} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorSavingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	} catch (FileNotFoundException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorSavingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	}

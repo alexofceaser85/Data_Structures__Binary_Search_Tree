@@ -41,6 +41,12 @@ public class QuestionCodeBehind {
     private AnchorPane mainPane;
     
     private BinaryTreeViewModel binaryTreeViewModel;
+    private final String errorSavingFile = "There was an error saving your file";
+    private final String errorLoadingFile = "There was an error loading your file";
+    private final String couldNotTraverseLeftMessage = "Could not traverse left";
+    private final String couldNotTraverseRightMessage = "Could not traverse right";
+    private final String computerAlertTitle  = "The computers guess is this: ";
+    private final String computerAlertContent = "The computer correctly guessed your animal";
     
     /**
      * The constructor for the question code behind
@@ -80,12 +86,12 @@ public class QuestionCodeBehind {
         	windowManager.switchToQuestion(event, (Stage) ((Node) this.mainPane).getScene().getWindow());
     	} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorLoadingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	} catch (FileNotFoundException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorLoadingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	}
@@ -101,12 +107,12 @@ public class QuestionCodeBehind {
 			saveTree.saveFile(theFile, this.binaryTreeViewModel);
 		} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorSavingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	} catch (FileNotFoundException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
-    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setTitle(this.errorSavingFile);
     		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
         	cannotFindAnimalGuessAlert.showAndWait();
     	}
@@ -123,7 +129,7 @@ public class QuestionCodeBehind {
     	} catch (IllegalArgumentException e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText(e.getMessage());
-    		alert.setTitle("Could Not Traverse Left");
+    		alert.setTitle(this.couldNotTraverseLeftMessage);
     		alert.showAndWait();
     	}
     }
@@ -139,25 +145,26 @@ public class QuestionCodeBehind {
     	} catch (IllegalArgumentException e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText(e.getMessage());
-    		alert.setTitle("Could Not Traverse Right");
+    		alert.setTitle(this.couldNotTraverseRightMessage);
     		alert.showAndWait();
     	}
     }
     
     private void switchToWinningScreen(ActionEvent actionEvent) {
+    	String alertContent = "Is your animal a: " + this.binaryTreeViewModel.getCurrentNode().getNodeValue();
     	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
     	Alert alert = 
     	        new Alert(AlertType.INFORMATION, 
-    	             "Is your animal a: " + this.binaryTreeViewModel.getCurrentNode().getNodeValue(),
+    	             alertContent,
     	             ButtonType.YES, 
     	             ButtonType.NO);
-    	alert.setTitle("The computers guess is this: ");
+    	alert.setTitle(this.computerAlertTitle);
     	Optional<ButtonType> result = alert.showAndWait();
 
     	if (result.get() == ButtonType.YES) {
     		Alert computerWinsAlert = new Alert(AlertType.INFORMATION);
-    		computerWinsAlert.setTitle("The computers guess is this: ");
-    		computerWinsAlert.setContentText("The computer correctly guessed your animal");
+    		computerWinsAlert.setTitle(this.computerAlertTitle);
+    		computerWinsAlert.setContentText(this.computerAlertContent);
         	computerWinsAlert.showAndWait();
     		windowManager.switchToStart(actionEvent);
     	} else {

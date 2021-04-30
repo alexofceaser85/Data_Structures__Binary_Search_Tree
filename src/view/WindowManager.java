@@ -27,6 +27,10 @@ import viewmodel.BinaryTreeViewModel;
 public class WindowManager {
 
 	private BinaryTreeViewModel binaryTreeViewModel;
+	private final String guiLoadErrorTitle = "GUI load error";
+	private final String startGuiLoadError = "Start Menu GUI load error";
+	private final String humanWinsLoadError = "Human Wins GUI load error";
+	private final String questionLoadError = "Question GUI load error";
 	
 	/**
 	 * The constructor for the window manager
@@ -65,8 +69,8 @@ public class WindowManager {
             primaryStage.show();
     	} catch (IOException e) {
     		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Start Menu GUI load error");
-    		alert.setTitle("Load Error");
+    		alert.setContentText(this.startGuiLoadError);
+    		alert.setTitle(this.guiLoadErrorTitle);
     		alert.showAndWait();
     	}
     }
@@ -95,8 +99,8 @@ public class WindowManager {
             primaryStage.show();
     	} catch (IOException e) {
     		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Human Wins GUI load error");
-    		alert.setTitle("Load Error");
+    		alert.setContentText(this.humanWinsLoadError);
+    		alert.setTitle(this.guiLoadErrorTitle);
     		alert.showAndWait();
     	}
     }
@@ -127,8 +131,8 @@ public class WindowManager {
             primaryStage.show();
     	} catch (IOException e) {
     		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Question GUI load error");
-    		alert.setTitle("Load Error");
+    		alert.setContentText(this.questionLoadError);
+    		alert.setTitle(this.guiLoadErrorTitle);
     		alert.showAndWait();
     	}
     }

@@ -134,24 +134,22 @@ public class LoadBinaryTree {
 	}
 	
 	private void addQuestionNode(BinaryTreeViewModel binaryTree, Scanner fileScanner, String nodeValue, String nodeType, QuestionNode questionNode) {
-
+		
+		QuestionNode node = new QuestionNode(nodeValue, NodeType.QUESTION);
+		node.setParentNode(questionNode);
+		
 		if (!questionNode.hasLeftChild()) {
-			System.out.println("question: " + nodeValue);
-			QuestionNode leftChild = new QuestionNode(nodeValue, NodeType.QUESTION);
+			QuestionNode leftChild = node;
 			questionNode.setLeftChild(leftChild);
-			leftChild.setParentNode(questionNode);
 			this.loadSubtree(binaryTree, leftChild, fileScanner, nodeValue, nodeType, true);
 		} 
 		if (!questionNode.hasRightChild()) {
-			System.out.println("question: " + nodeValue);
-			QuestionNode rightChild = new QuestionNode(nodeValue, NodeType.QUESTION);
+			QuestionNode rightChild = node;
 			questionNode.setRightChild(rightChild);
-			rightChild.setParentNode(questionNode);
 			this.loadSubtree(binaryTree, rightChild, fileScanner, nodeValue, nodeType, true);
 		} 
-
-		if (questionNode.hasLeftChild() && questionNode.hasRightChild() && questionNode.getParentNode() != null) {
-			
+		
+		if (questionNode.hasLeftChild() && questionNode.hasRightChild()) {
 			String newNodeValue = this.getNextFileLine(fileScanner);
 			String newNodeType = this.getNextFileLine(fileScanner);
 			
