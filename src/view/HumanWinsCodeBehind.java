@@ -1,25 +1,23 @@
 package view;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 
+import data.io.LoadBinaryTree;
+import data.io.SaveBinaryTree;
 import enums.NodeType;
 import errormessages.ErrorMessages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import viewmodel.BinaryTreeViewModel;
 
@@ -56,6 +54,9 @@ public class HumanWinsCodeBehind {
     @FXML
     private MenuItem loadFileButton;
 
+    @FXML
+    private AnchorPane mainPane;
+    
     private BinaryTreeViewModel binaryTreeViewModel;
     
     /**
@@ -87,49 +88,54 @@ public class HumanWinsCodeBehind {
     		alert.showAndWait();
     	}
     }
-    
 
     @FXML
     void loadFile(ActionEvent event) {
+    	try {
+    		WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
+    		File theFile = windowManager.showLoadFile(this.mainPane);
 
+        	LoadBinaryTree loadTree = new LoadBinaryTree();
+        	this.binaryTreeViewModel = loadTree.loadBinaryTree(theFile);
+        	
+        	windowManager = new WindowManager(this.binaryTreeViewModel);
+        	windowManager.switchToQuestion(event, (Stage) ((Node) this.mainPane).getScene().getWindow());
+    	} catch (IllegalArgumentException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	}
     }
 
     @FXML
     void saveFile(ActionEvent event) {
-    	FileChooser chooser = new FileChooser(); 
-    	chooser.setTitle("Save File");
-    	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-    	Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    	chooser.showOpenDialog(mainStage);
-
-        HBox root = new HBox();  
-        
-        root.setSpacing(20);  
-      
-        Scene scene = new Scene(root, 350, 100);  
-        mainStage.setScene(scene);  
-        mainStage.setTitle("FileChooser Example");  
-        mainStage.show(); 
+    	try {
+        	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
+        	File theFile = windowManager.showSaveFile(this.mainPane);
+        	
+        	SaveBinaryTree saveTree = new SaveBinaryTree();
+			saveTree.saveFile(theFile, this.binaryTreeViewModel);
+		} catch (IllegalArgumentException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	}
     }
     
     private void switchToStart(ActionEvent actionEvent) {
-    	try {
-            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
-    		Parent root = (Parent) loader.load();
-    		StartMenuCodeBehind controller = loader.<StartMenuCodeBehind>getController();
-    		controller.setViewModel(this.binaryTreeViewModel);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
-    	} catch (IOException e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Start Menu GUI load error");
-    		alert.setTitle("Load Error");
-    		alert.showAndWait();
-    	}
+    	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
+    	windowManager.switchToStart(actionEvent);
     }
 }

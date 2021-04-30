@@ -1,22 +1,22 @@
 package view;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
+import data.io.LoadBinaryTree;
+import data.io.SaveBinaryTree;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
-import model.QuestionNode;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import viewmodel.BinaryTreeViewModel;
 
 /**
@@ -37,6 +37,9 @@ public class QuestionCodeBehind {
     @FXML
     private Label questionLabel;
 
+    @FXML
+    private AnchorPane mainPane;
+    
     private BinaryTreeViewModel binaryTreeViewModel;
     
     /**
@@ -64,8 +67,49 @@ public class QuestionCodeBehind {
     	this.updateGUI();
     }
     
-    private void updateGUI() {
-    	this.questionLabel.setText(this.binaryTreeViewModel.getCurrentNode().getNodeValue());
+    @FXML
+    void loadFile(ActionEvent event) {
+    	try {
+    		WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
+    		File theFile = windowManager.showLoadFile(this.mainPane);
+
+        	LoadBinaryTree loadTree = new LoadBinaryTree();
+        	this.binaryTreeViewModel = loadTree.loadBinaryTree(theFile);
+        	
+        	windowManager = new WindowManager(this.binaryTreeViewModel);
+        	windowManager.switchToQuestion(event, (Stage) ((Node) this.mainPane).getScene().getWindow());
+    	} catch (IllegalArgumentException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error loading file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	}
+    }
+
+    @FXML
+    void saveFile(ActionEvent event) {
+    	try {
+        	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
+        	File theFile = windowManager.showSaveFile(this.mainPane);
+        	
+        	SaveBinaryTree saveTree = new SaveBinaryTree();
+			saveTree.saveFile(theFile, this.binaryTreeViewModel);
+		} catch (IllegalArgumentException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	} catch (FileNotFoundException e) {
+    		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
+    		cannotFindAnimalGuessAlert.setTitle("Error saving file");
+    		cannotFindAnimalGuessAlert.setContentText(e.getMessage());
+        	cannotFindAnimalGuessAlert.showAndWait();
+    	}
     }
     
     @FXML
@@ -87,7 +131,6 @@ public class QuestionCodeBehind {
     @FXML
     void traverseRight(ActionEvent event) {
     	try {
-    		QuestionNode node = (QuestionNode) this.binaryTreeViewModel.getRootNode();
         	if (this.binaryTreeViewModel.traverseToRightChild() && this.binaryTreeViewModel.getCurrentNode().getNodeType().equals(NodeType.QUESTION)) {
         		this.updateGUI();
         	} else {
@@ -102,6 +145,7 @@ public class QuestionCodeBehind {
     }
     
     private void switchToWinningScreen(ActionEvent actionEvent) {
+    	WindowManager windowManager = new WindowManager(this.binaryTreeViewModel);
     	Alert alert = 
     	        new Alert(AlertType.INFORMATION, 
     	             "Is your animal a: " + this.binaryTreeViewModel.getCurrentNode().getNodeValue(),
@@ -115,51 +159,13 @@ public class QuestionCodeBehind {
     		computerWinsAlert.setTitle("The computers guess is this: ");
     		computerWinsAlert.setContentText("The computer correctly guessed your animal");
         	computerWinsAlert.showAndWait();
-    		this.switchToMain(actionEvent);
+    		windowManager.switchToStart(actionEvent);
     	} else {
-    		this.switchToHumanWins(actionEvent);
+    		windowManager.switchToHumanWins(actionEvent);
     	}
     }
     
-    private void switchToHumanWins(ActionEvent actionEvent) {
-    	try {
-            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HumanWins.fxml"));
-    		Parent root = (Parent) loader.load();
-    		HumanWinsCodeBehind controller = loader.<HumanWinsCodeBehind>getController();
-    		controller.setViewModel(this.binaryTreeViewModel);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
-    	} catch (IOException e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Human Wins GUI load error");
-    		alert.setTitle("Load Error");
-    		alert.showAndWait();
-    	}
-    }
-    
-    private void switchToMain(ActionEvent actionEvent) {
-    	try {
-            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/StartMenu.fxml"));
-    		Parent root = (Parent) loader.load();
-    		StartMenuCodeBehind controller = loader.<StartMenuCodeBehind>getController();
-    		controller.setViewModel(this.binaryTreeViewModel);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
-    	} catch (IOException e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Start Menu GUI load error");
-    		alert.setTitle("Load Error");
-    		alert.showAndWait();
-    	}
+    private void updateGUI() {
+    	this.questionLabel.setText(this.binaryTreeViewModel.getCurrentNode().getNodeValue());
     }
 }

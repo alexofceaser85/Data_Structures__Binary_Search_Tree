@@ -13,20 +13,14 @@ import data.io.SaveBinaryTree;
 import enums.NodeType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.FileChooser.ExtensionFilter;
 import model.AnswerNode;
 import viewmodel.BinaryTreeViewModel;
 import viewmodel.InitialAnimalGuessViewModel;
@@ -81,27 +75,14 @@ public class StartMenuCodeBehind {
     @FXML
     void loadFile(ActionEvent event) throws IOException {
     	try {
-        	FileChooser chooser = new FileChooser(); 
-        	chooser.setTitle("Load File");
-        	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-        	Window stage = this.startMenuPane.getScene().getWindow();
-        	File theFile = chooser.showOpenDialog(stage);
+    		WindowManager windowManager = new WindowManager(this.theBinaryTree);
+    		File theFile = windowManager.showLoadFile(this.startMenuPane);
 
         	LoadBinaryTree loadTree = new LoadBinaryTree();
         	this.theBinaryTree = loadTree.loadBinaryTree(theFile);
         	
-            Stage primaryStage = (Stage) ((Node) this.startMenuPane).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Question.fxml"));
-    		Parent root = (Parent) loader.load();
-    		QuestionCodeBehind controller = loader.<QuestionCodeBehind>getController();
-    		
-    		controller.setViewModel(this.theBinaryTree);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
+        	windowManager = new WindowManager(this.theBinaryTree);
+        	windowManager.switchToQuestion(event, (Stage) ((Node) this.startMenuPane).getScene().getWindow());
     	} catch (IllegalArgumentException e) {
     		Alert cannotFindAnimalGuessAlert = new Alert(AlertType.INFORMATION);
     		cannotFindAnimalGuessAlert.setTitle("Error loading file");
@@ -118,11 +99,8 @@ public class StartMenuCodeBehind {
     @FXML
     void saveFile(ActionEvent event) {
     	try {
-        	FileChooser chooser = new FileChooser(); 
-        	chooser.setTitle("Save File");
-        	chooser.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
-        	Window stage = this.startMenuPane.getScene().getWindow();
-        	File theFile = chooser.showSaveDialog(stage);
+    		WindowManager windowManager = new WindowManager(this.theBinaryTree);
+        	File theFile = windowManager.showSaveFile(this.startMenuPane);
 
         	SaveBinaryTree saveTree = new SaveBinaryTree();
         	saveTree.saveFile(theFile, this.theBinaryTree);
@@ -150,31 +128,15 @@ public class StartMenuCodeBehind {
     
     @FXML
     public void switchToQuestion(ActionEvent actionEvent) {
-    	try {
-    		if (this.theBinaryTree.getCurrentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode().getNodeType().equals(NodeType.ANSWER)) {
-    			this.theBinaryTree.setRootNode(new AnswerNode(this.getInitialNode(), NodeType.ANSWER));
-    			this.switchToWinningScreen(actionEvent);
-    		} else {
-        		this.theBinaryTree.setCurrentNode(this.theBinaryTree.getRootNode());
-                Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        		
-        		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Question.fxml"));
-        		Parent root = (Parent) loader.load();
-        		QuestionCodeBehind controller = loader.<QuestionCodeBehind>getController();
-        		
-        		controller.setViewModel(this.theBinaryTree);
-        		
-        		Scene theScene = new Scene(root);
-                primaryStage.setScene(theScene);
-
-                primaryStage.show();
-    		}
-    	} catch (IOException e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Question GUI load error");
-    		alert.setTitle("Load Error");
-    		alert.showAndWait();
-    	}
+    	WindowManager windowManager = new WindowManager(this.theBinaryTree);
+		
+		if (this.theBinaryTree.getCurrentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode() == null || this.theBinaryTree.getCurrentNode().getParentNode().getNodeType().equals(NodeType.ANSWER)) {
+			this.theBinaryTree.setRootNode(new AnswerNode(this.getInitialNode(), NodeType.ANSWER));
+			this.switchToWinningScreen(actionEvent, windowManager);
+		} else {
+			this.theBinaryTree.setCurrentNode(this.theBinaryTree.getRootNode());
+			windowManager.switchToQuestion(actionEvent, (Stage) ((Node) this.startMenuPane).getScene().getWindow());
+		}
     }
     
     private String getInitialNode() {
@@ -194,7 +156,7 @@ public class StartMenuCodeBehind {
 		}
     }
     
-    private void switchToWinningScreen(ActionEvent actionEvent) {
+    private void switchToWinningScreen(ActionEvent actionEvent, WindowManager windowManager) {
     	Alert alert = 
     	        new Alert(AlertType.INFORMATION, 
     	        		"Is your animal a: " + this.theBinaryTree.getCurrentNode().getNodeValue(),
@@ -209,28 +171,7 @@ public class StartMenuCodeBehind {
     		computerWinsAlert.setContentText("The computer correctly guessed your animal");
         	computerWinsAlert.showAndWait();
     	} else {
-    		this.switchToHumanWins(actionEvent);
-    	}
-    }
-    
-    private void switchToHumanWins(ActionEvent actionEvent) {
-    	try {
-            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-    		
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HumanWins.fxml"));
-    		Parent root = (Parent) loader.load();
-    		HumanWinsCodeBehind controller = loader.<HumanWinsCodeBehind>getController();
-    		controller.setViewModel(this.theBinaryTree);
-    		
-    		Scene theScene = new Scene(root);
-            primaryStage.setScene(theScene);
-
-            primaryStage.show();
-    	} catch (IOException e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Human Wins GUI load error");
-    		alert.setTitle("Load Error");
-    		alert.showAndWait();
+    		windowManager.switchToHumanWins(actionEvent);
     	}
     }
 
